@@ -1,6 +1,6 @@
 import type { ArticlesItem, ArticlesResponse } from '../types/strapi';
 
-const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL
+const STRAPI_URL = "https://gulamta-portal-backend-production.up.railway.app"
 
 const fetchOptions: RequestInit = {
     headers: {
