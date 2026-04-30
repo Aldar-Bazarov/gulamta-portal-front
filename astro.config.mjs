@@ -9,4 +9,9 @@ export default defineConfig({
   }),
   site: 'https://gulamta-portal.pages.dev',
   integrations: [],
+  vite: {
+    define: {
+      'import.meta.env.PUBLIC_STRAPI_URL': JSON.stringify(process.env.PUBLIC_STRAPI_URL),
+    },
+  },
 });
