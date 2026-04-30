@@ -1,0 +1,282 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getArticlesBySlug, getImageUrl } from '../../lib/strapi';
+import type { ArticlesItem } from '../../types/strapi';
+
+// В server режиме slug приходит из URL
+const { slug } = Astro.params;
+
+// Получаем новость по slug при каждом запросе
+const news = await getArticlesBySlug(slug || '');
+
+// Если новость не найдена, отдаём 404
+if (!news) {
+  return Astro.redirect('/404');
+}
+
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
+function getCategoryName(category: ArticlesItem['category']): string {
+  const categories: Record<ArticlesItem['category'], string> = {
+    news: 'Новости',
+    events: 'События',
+    announcements: 'Объявления',
+    academics: 'Академическая жизнь'
+  };
+  return categories[category] || category;
+}
+---
+
+<Layout title={news.title} description={news.excerpt}>
+  <main class="container">
+    <article class="article">
+      {/* Хлебные крошки */}
+      <nav class="breadcrumbs">
+        <a href="/">Главная</a>
+        <span>/</span>
+        <span>{getCategoryName(news.category)}</span>
+        <span>/</span>
+        <span>{news.title}</span>
+      </nav>
+      
+      {/* Заголовок и мета-информация */}
+      <header class="article__header">
+        <h1 class="article__title">{news.title}</h1>
+        
+        <div class="article__meta">
+          <span class="article__category">{getCategoryName(news.category)}</span>
+          <time class="article__date" datetime={news.publishedAt}>
+            {formatDate(news.publishedAt)}
+          </time>
+          <span class="article__views">👁️ {news.views} просмотров</span>
+        </div>
+      </header>
+      
+      {/* Главное изображение */}
+      {getImageUrl(news.featuredImage, 'large') && (
+        <div class="article__image">
+          <img 
+            src={getImageUrl(news.featuredImage, 'large')!}
+            alt={news.title}
+            loading="eager"
+          />
+        </div>
+      )}
+      
+      {/* Превью (excerpt) */}
+      <div class="article__excerpt">
+        {news.excerpt}
+      </div>
+      
+      {/* Контент новости */}
+      <div class="article__content" set:html={news.content} />
+      
+      {/* Теги (если есть) */}
+      {news.tags && Object.keys(news.tags).length > 0 && (
+        <div class="article__tags">
+          <h3>Теги:</h3>
+          <div class="tags-list">
+            {Object.entries(news.tags).map(([key, value]) => (
+              <span class="tag">{value}</span>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {/* Кнопки шаринга */}
+      <div class="article__share">
+        <button class="share-button" data-share="vk">Поделиться ВК</button>
+        <button class="share-button" data-share="tg">Поделиться в Telegram</button>
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  .breadcrumbs {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+  
+  .breadcrumbs a {
+    color: #4338ca;
+    text-decoration: none;
+  }
+  
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  
+  .article__header {
+    margin-bottom: 2rem;
+  }
+  
+  .article__title {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+  
+  .article__meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+  }
+  
+  .article__category {
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  
+  .article__date, .article__views {
+    color: #6b7280;
+  }
+  
+  .article__image {
+    margin: 2rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .article__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .article__excerpt {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #4b5563;
+    padding: 1.5rem;
+    background: #f9fafb;
+    border-left: 4px solid #4338ca;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+  }
+  
+  .article__content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #374151;
+  }
+  
+  .article__content :is(h1, h2, h3, h4, h5, h6) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .article__content p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .article__content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+  }
+  
+  .article__content blockquote {
+    border-left: 4px solid #4338ca;
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    font-style: italic;
+    color: #6b7280;
+  }
+  
+  .article__tags {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .article__tags h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .tags-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .tag {
+    background: #f3f4f6;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+  
+  .article__share {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .share-button {
+    background: #f3f4f6;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .share-button:hover {
+    background: #e5e7eb;
+  }
+  
+  @media (max-width: 768px) {
+    .article__title {
+      font-size: 1.75rem;
+    }
+    
+    .article__excerpt {
+      font-size: 1rem;
+    }
+    
+    .article__content {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Скрипты для шаринга
+  const currentUrl = window.location.href;
+  const currentTitle = document.title;
+  
+  document.querySelector('[data-share="vk"]')?.addEventListener('click', () => {
+    window.open(`https://vk.com/share.php?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(currentTitle)}`);
+  });
+  
+  document.querySelector('[data-share="tg"]')?.addEventListener('click', () => {
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(currentTitle)}`);
+  });
+</script>

@@ -1,11 +1,214 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import { getArticles, getImageUrl } from '../lib/strapi';
+import type { ArticlesItem } from '../types/strapi';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const articles = await getArticles();
+
+// Форматирование даты
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+}
+
+// Транслитерация категорий
+function getCategoryName(category: ArticlesItem['category']): string {
+  const categories: Record<ArticlesItem['category'], string> = {
+    news: 'Новости',
+    events: 'События',
+    announcements: 'Объявления',
+    academics: 'Академическая жизнь'
+  };
+  return categories[category] || category;
+}
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Студенческие новости">
+  <main class="container">
+    <h1>Студенческие новости</h1>
+    
+    {articles.length === 0 ? (
+      <p class="no-articles">Новостей пока нет</p>
+    ) : (
+      <div class="articles-grid">
+        {articles.map((item: ArticlesItem) => (
+          <article class="articles-card">
+            {getImageUrl(item.featuredImage, 'small') && (
+              <a href={`/articles/${item.slug}`} class="articles-card__image-link">
+                <img 
+                  src={getImageUrl(item.featuredImage, 'small')!}
+                  alt={item.title}
+                  loading="lazy"
+                  class="articles-card__image"
+                />
+              </a>
+            )}
+            
+            <div class="articles-card__content">
+              <div class="articles-card__meta">
+                <span class="articles-card__category">{getCategoryName(item.category)}</span>
+                <time class="articles-card__date" datetime={item.publishedAt}>
+                  {formatDate(item.publishedAt)}
+                </time>
+              </div>
+              
+              <h2 class="articles-card__title">
+                <a href={`/articles/${item.slug}`}>{item.title}</a>
+              </h2>
+              
+              <p class="articles-card__excerpt">{item.excerpt}</p>
+              
+              <div class="articles-card__footer">
+                <a href={`/articles/${item.slug}`} class="articles-card__read-more">
+                  Читать далее →
+                </a>
+                <span class="articles-card__views">👁️ {item.views}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </main>
 </Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+  }
+  
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  
+  .articles-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .articles-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  
+  .articles-card__image-link {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+  }
+  
+  .articles-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  
+  .articles-card:hover .articles-card__image {
+    transform: scale(1.05);
+  }
+  
+  .articles-card__content {
+    padding: 1.5rem;
+  }
+  
+  .articles-card__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .articles-card__category {
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  
+  .articles-card__date {
+    color: #6b7280;
+  }
+  
+  .articles-card__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+  
+  .articles-card__title a {
+    color: #1a1a1a;
+    text-decoration: none;
+  }
+  
+  .articles-card__title a:hover {
+    color: #4338ca;
+  }
+  
+  .articles-card__excerpt {
+    color: #4b5563;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .articles-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .articles-card__read-more {
+    color: #4338ca;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .articles-card__read-more:hover {
+    text-decoration: underline;
+  }
+  
+  .articles-card__views {
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+  
+  .no-articles {
+    text-align: center;
+    padding: 4rem;
+    color: #6b7280;
+    font-size: 1.125rem;
+  }
+  
+  @media (max-width: 768px) {
+    .articles-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    h1 {
+      font-size: 1.75rem;
+    }
+  }
+</style>
