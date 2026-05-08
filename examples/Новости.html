@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Новости — Гуламта</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #faf7f4;
+      --card: rgba(255,255,255,0.82);
+      --text: #1e1c1b;
+      --muted: #6f6864;
+      --accent: #de6f3d;
+      --accent-soft: #f5d2bf;
+      --border: rgba(0,0,0,0.06);
+      --shadow: 0 12px 40px rgba(0,0,0,0.06);
+      --radius: 30px;
+    }
+
+    body {
+      font-family: Inter, sans-serif;
+      background: linear-gradient(to bottom, #fffdfb 0%, #faf7f4 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1320px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(255,255,255,0.74);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .navbar {
+      height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ffb27a, #de6f3d);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 22px;
+      box-shadow: 0 12px 28px rgba(222,111,61,0.3);
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .logo p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    nav {
+      display: flex;
+      gap: 28px;
+      color: #4d4845;
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .button {
+      border: none;
+      cursor: pointer;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ea7c4b, #d75f2c);
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(222,111,61,0.26);
+      transition: 0.25s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      padding: 72px 0 36px;
+    }
+
+    .hero-box {
+      position: relative;
+      min-height: 620px;
+      overflow: hidden;
+      border-radius: 42px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-box img {
+      height: 620px;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(18,18,18,0.72), rgba(18,18,18,0.2));
+    }
+
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      padding: 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: white;
+      max-width: 760px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(14px);
+      margin-bottom: 28px;
+      font-size: 14px;
+    }
+
+    .hero-content h2 {
+      font-size: clamp(52px, 7vw, 88px);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+      margin-bottom: 24px;
+      font-weight: 800;
+    }
+
+    .hero-content p {
+      font-size: 20px;
+      line-height: 1.6;
+      opacity: 0.9;
+      margin-bottom: 32px;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      opacity: 0.84;
+    }
+
+    section {
+      padding: 54px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .section-head h3 {
+      font-size: clamp(34px, 4vw, 54px);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .section-head p {
+      max-width: 560px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .filters {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .filter {
+      white-space: nowrap;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.74);
+      border: 1px solid rgba(0,0,0,0.05);
+      color: var(--muted);
+      backdrop-filter: blur(16px);
+      transition: 0.25s ease;
+    }
+
+    .filter.active,
+    .filter:hover {
+      background: linear-gradient(135deg, #ef8353, #db6837);
+      color: white;
+      border-color: transparent;
+    }
+
+    .news-layout {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 28px;
+    }
+
+    .news-card {
+      background: rgba(255,255,255,0.82);
+      border-radius: 32px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
+      transition: 0.3s ease;
+      backdrop-filter: blur(18px);
+    }
+
+    .news-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .news-card img {
+      height: 280px;
+    }
+
+    .news-content {
+      padding: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff3ec;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .news-content h4 {
+      font-size: 30px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.04em;
+    }
+
+    .news-content p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .news-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .sidebar-card {
+      padding: 32px;
+      border-radius: 32px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .sidebar-card h4 {
+      font-size: 28px;
+      margin-bottom: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .mini-news {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 22px;
+      align-items: center;
+    }
+
+    .mini-news:last-child {
+      margin-bottom: 0;
+    }
+
+    .mini-news img {
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+
+    .mini-news h5 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .mini-news span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .telegram-box {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f6e6dc, #f2d7c7);
+    }
+
+    .telegram-box::after {
+      content: "🔥";
+      position: absolute;
+      right: -12px;
+      bottom: -20px;
+      font-size: 120px;
+      opacity: 0.08;
+    }
+
+    .telegram-box p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .newsletter {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .newsletter input {
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(0,0,0,0.05);
+      font-size: 15px;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 56px;
+    }
+
+    .page-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.84);
+      border: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      transition: 0.25s ease;
+    }
+
+    .page-btn.active,
+    .page-btn:hover {
+      background: linear-gradient(135deg, #ef8353, #db6837);
+      color: white;
+      border-color: transparent;
+    }
+
+    footer {
+      padding: 70px 0 90px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 40px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      padding-top: 40px;
+    }
+
+    .footer-column h5 {
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .footer-column a {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--muted);
+    }
+
+    .footer-brand p {
+      margin-top: 18px;
+      max-width: 340px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .socials {
+      display: flex;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .social {
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 1200px) {
+      .news-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero-box,
+      .hero-box img {
+        min-height: 520px;
+        height: 520px;
+      }
+
+      .hero-content {
+        padding: 36px;
+      }
+
+      .hero-content h2 {
+        font-size: 52px;
+      }
+
+      .hero-content p {
+        font-size: 17px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container navbar">
+
+    <div class="logo">
+      <div class="logo-icon">🔥</div>
+
+      <div>
+        <h1>Гуламта</h1>
+        <p>Бурятское студенческое сообщество</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#">О сообществе</a>
+      <a href="#">События</a>
+      <a href="#">Медиа</a>
+      <a href="#">Гайды</a>
+      <a href="#">Команда</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <button class="button">Присоединиться</button>
+
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+
+    <div class="hero-box">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1800&auto=format&fit=crop" alt="Hero">
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+
+        <div class="hero-tag">
+          🔥 Медиа Гуламты
+        </div>
+
+        <h2>
+          Новости, истории
+          и жизнь сообщества
+        </h2>
+
+        <p>
+          Всё, чем живёт бурятское студенческое сообщество Москвы — события, интервью, поездки, лекции, творчество и настоящие истории людей.
+        </p>
+
+        <div class="hero-meta">
+          <span>1240+ участников</span>
+          <span>80+ мероприятий в год</span>
+          <span>Новые публикации каждую неделю</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <h3>Последние публикации</h3>
+      </div>
+
+      <p>
+        Современная жизнь бурятских студентов в Москве — от больших мероприятий до тихих вечерних разговоров после пар.
+      </p>
+    </div>
+
+    <div class="filters">
+      <div class="filter active">Все</div>
+      <div class="filter">События</div>
+      <div class="filter">Интервью</div>
+      <div class="filter">Культура</div>
+      <div class="filter">Карьера</div>
+      <div class="filter">Гайды</div>
+      <div class="filter">Медиа</div>
+    </div>
+
+    <div class="news-layout">
+
+      <div>
+
+        <div class="news-grid">
+
+          <article class="news-card">
+            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1400&auto=format&fit=crop" alt="News">
+
+            <div class="news-content">
+              <span class="badge">Событие</span>
+
+              <h4>
+                Весенний вечер Гуламты собрал студентов из 18 вузов Москвы
+              </h4>
+
+              <p>
+                Музыка, знакомства, бурятская кухня и атмосфера настоящего студенческого сообщества в центре Москвы.
+              </p>
+
+              <div class="news-footer">
+                <span>24 мая 2026</span>
+                <a href="#">Читать →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1400&auto=format&fit=crop" alt="News">
+
+            <div class="news-content">
+              <span class="badge">Интервью</span>
+
+              <h4>
+                Как выпускники Гуламты строят карьеру в IT и медиа
+              </h4>
+
+              <p>
+                Разговор о переезде, первых стажировках, поиске себя и поддержке сообщества в большом городе.
+              </p>
+
+              <div class="news-footer">
+                <span>19 мая 2026</span>
+                <a href="#">Читать →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=1400&auto=format&fit=crop" alt="News">
+
+            <div class="news-content">
+              <span class="badge">Культура</span>
+
+              <h4>
+                Современная бурятская идентичность глазами студентов Москвы
+              </h4>
+
+              <p>
+                Что значит сохранять культуру вдали от дома и как молодёжь переосмысляет традиции сегодня.
+              </p>
+
+              <div class="news-footer">
+                <span>14 мая 2026</span>
+                <a href="#">Читать →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=1400&auto=format&fit=crop" alt="News">
+
+            <div class="news-content">
+              <span class="badge">Гайд</span>
+
+              <h4>
+                Первый год в Москве: гид для студентов из Бурятии
+              </h4>
+
+              <p>
+                Полезные советы по жилью, транспорту, учёбе и тому, как быстрее почувствовать себя дома.
+              </p>
+
+              <div class="news-footer">
+                <span>9 мая 2026</span>
+                <a href="#">Читать →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="pagination">
+          <div class="page-btn active">1</div>
+          <div class="page-btn">2</div>
+          <div class="page-btn">3</div>
+          <div class="page-btn">→</div>
+        </div>
+
+      </div>
+
+      <aside class="sidebar">
+
+        <div class="sidebar-card">
+          <h4>Популярное</h4>
+
+          <div class="mini-news">
+            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=800&auto=format&fit=crop" alt="Mini">
+
+            <div>
+              <h5>Как студенты Гуламты проводят лето на Байкале</h5>
+              <span>5 минут чтения</span>
+            </div>
+          </div>
+
+          <div class="mini-news">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop" alt="Mini">
+
+            <div>
+              <h5>История создания бурятского сообщества в Москве</h5>
+              <span>8 минут чтения</span>
+            </div>
+          </div>
+
+          <div class="mini-news">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop" alt="Mini">
+
+            <div>
+              <h5>10 мест в Москве, где любят собираться студенты</h5>
+              <span>4 минуты чтения</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sidebar-card telegram-box">
+          <h4>Telegram Гуламты</h4>
+
+          <p>
+            Анонсы мероприятий, знакомства, вакансии, новости сообщества и живое общение каждый день.
+          </p>
+
+          <button class="button">
+            Перейти в Telegram
+          </button>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Подписка на новости</h4>
+
+          <p style="color: var(--muted); line-height: 1.7; margin-bottom: 20px;">
+            Раз в неделю отправляем лучшие публикации и анонсы мероприятий.
+          </p>
+
+          <div class="newsletter">
+            <input type="email" placeholder="Ваш email">
+            <button class="button">Подписаться</button>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-icon">🔥</div>
+
+        <div>
+          <h1>Гуламта</h1>
+          <p>Бурятское студенческое сообщество</p>
+        </div>
+      </div>
+
+      <p>
+        Пространство для студентов из Бурятии, которые учатся, живут и создают своё будущее в Москве.
+      </p>
+
+      <div class="socials">
+        <div class="social">TG</div>
+        <div class="social">VK</div>
+        <div class="social">IG</div>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h5>Навигация</h5>
+      <a href="#">О нас</a>
+      <a href="#">События</a>
+      <a href="#">Медиа</a>
+      <a href="#">Гайды</a>
+    </div>
+
+    <div class="footer-column">
+      <h5>Сообщество</h5>
+      <a href="#">Команда</a>
+      <a href="#">Направления</a>
+      <a href="#">Партнёры</a>
+      <a href="#">Контакты</a>
+    </div>
+
+    <div class="footer-column">
+      <h5>Полезное</h5>
+      <a href="#">Telegram бот</a>
+      <a href="#">FAQ</a>
+      <a href="#">Поддержка</a>
+      <a href="#">Политика</a>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

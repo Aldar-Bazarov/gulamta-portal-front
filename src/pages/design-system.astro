@@ -1,0 +1,117 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Design system — Гуламта">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Design system</span>
+      <h1 class="page-title">Токены и компоненты интерфейса Гуламты</h1>
+      <p class="page-lead">База для Astro + Tailwind: цвета, радиусы, тени, карточки, кнопки, бейджи и типографика.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Палитра</span>
+          <h2 class="section-title">Тёплая, светлая, терракотовая</h2>
+        </div>
+      </div>
+      <div class="palette">
+        <div style="--swatch: #faf7f4"><span>Background</span><code>gulamta-bg</code></div>
+        <div style="--swatch: #fffdfb"><span>Soft</span><code>gulamta-bg-soft</code></div>
+        <div style="--swatch: #1d1c1b"><span>Text</span><code>gulamta-text</code></div>
+        <div style="--swatch: #6d6763"><span>Muted</span><code>gulamta-muted</code></div>
+        <div style="--swatch: #df6d3b"><span>Accent</span><code>gulamta-accent</code></div>
+        <div style="--swatch: #fff1e8"><span>Accent soft</span><code>gulamta-accent-soft</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div class="card sample">
+        <span class="badge">Компонент</span>
+        <h2>Карточка</h2>
+        <p>Полупрозрачная поверхность, мягкая тень, радиус 28px. Используется для новостей, отделов, FAQ и партнёрских блоков.</p>
+      </div>
+      <div class="sample-actions card">
+        <h2>Кнопки</h2>
+        <div>
+          <a class="button" href="/">Primary</a>
+          <a class="button-secondary" href="/">Secondary</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .palette div {
+    min-height: 190px;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: var(--swatch);
+    box-shadow: var(--shadow-sm);
+    padding: 18px;
+  }
+
+  .palette span,
+  .palette code {
+    display: block;
+    width: fit-content;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 7px 10px;
+  }
+
+  .palette code {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .sample,
+  .sample-actions {
+    padding: 34px;
+  }
+
+  .sample h2,
+  .sample-actions h2 {
+    margin: 18px 0 12px;
+    font-size: 36px;
+  }
+
+  .sample p {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .sample-actions div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1100px) {
+    .palette {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .palette {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

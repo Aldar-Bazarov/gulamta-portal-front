@@ -1,0 +1,189 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { departments, directions, team } from "../lib/mockData";
+---
+
+<Layout title="Команда — Гуламта">
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-box">
+        <img src="/images/team.jpg" alt="Команда Гуламты" />
+        <div class="page-hero-content">
+          <span class="eyebrow">Команда</span>
+          <h1 class="page-title">Люди, которые собирают сообщество</h1>
+          <p class="page-lead">
+            Руководство, отделы и направления Гуламты: медиа, спорт, карьера,
+            поступление, музыка и интеллектуальные проекты.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <article class="chair card">
+        <div>
+          <span class="section-kicker">Председатель</span>
+          <h2>{team.chair.name}</h2>
+          <p>{team.chair.description}</p>
+        </div>
+        <img class="portrait" src={team.chair.image} alt={team.chair.name} />
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Отделы</span>
+          <h2 class="section-title">Роли и ответственность</h2>
+        </div>
+      </div>
+      <div class="grid-3">
+        {
+          departments.map((department) => (
+            <article class="dept card">
+              <img src={department.image} alt={`Руководитель направления ${department.title}`} />
+              <h3>{department.title}</h3>
+              <p>{department.description}</p>
+              <span>{department.lead}</span>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <span class="section-kicker">Направления</span>
+        <h2 class="section-title">Клубы и проекты</h2>
+      </div>
+      <div class="direction-list">
+        {directions.map((direction) => <div class="card">{direction}</div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Участники</span>
+          <h2 class="section-title">Руководители направлений</h2>
+        </div>
+      </div>
+      <div class="grid-3">
+        {
+          team.members.map((member) => (
+            <article class="member card">
+              <img src={member.image} alt={member.name} />
+              <div>
+                <h3>{member.name}</h3>
+                <p>
+                  {member.role} · {member.department}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .chair {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 32px;
+    align-items: center;
+    padding: 42px;
+  }
+
+  .chair h2 {
+    margin-bottom: 16px;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1;
+  }
+
+  .chair p,
+  .dept p {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .portrait {
+    width: 200px;
+    height: 200px;
+    border-radius: 42px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .dept {
+    padding: 30px;
+  }
+
+  .dept img {
+    width: 100%;
+    height: 260px;
+    margin-bottom: 22px;
+    border-radius: 24px;
+  }
+
+  .dept h3 {
+    margin-bottom: 12px;
+    font-size: 28px;
+  }
+
+  .dept span {
+    display: block;
+    margin-top: 18px;
+    color: var(--accent);
+    font-weight: 900;
+  }
+
+  .direction-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .direction-list .card {
+    padding: 24px 28px;
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .member {
+    overflow: hidden;
+  }
+
+  .member img {
+    height: 320px;
+  }
+
+  .member div {
+    padding: 24px;
+  }
+
+  .member h3 {
+    margin-bottom: 8px;
+    font-size: 26px;
+  }
+
+  .member p {
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  @media (max-width: 760px) {
+    .chair {
+      grid-template-columns: 1fr;
+      padding: 28px;
+    }
+  }
+</style>

@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>О нас — Гуламта</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+
+      --bg: #faf7f4;
+      --bg-soft: #fffdfb;
+
+      --text: #1a1918;
+      --muted: #6f6964;
+
+      --accent: #dd6d3b;
+      --accent-hover: #c95c2e;
+      --accent-soft: #fff1e8;
+
+      --card: rgba(255,255,255,0.8);
+      --border: rgba(0,0,0,0.06);
+
+      --shadow-sm: 0 4px 18px rgba(0,0,0,0.04);
+      --shadow-md: 0 16px 48px rgba(0,0,0,0.06);
+      --shadow-lg: 0 30px 80px rgba(0,0,0,0.12);
+
+      --radius-sm: 18px;
+      --radius-md: 28px;
+      --radius-lg: 42px;
+
+      --container: 1380px;
+
+    }
+
+    body {
+
+      font-family: Inter, sans-serif;
+
+      background:
+      linear-gradient(
+        to bottom,
+        #fffdfb 0%,
+        #faf7f4 100%
+      );
+
+      color: var(--text);
+
+      overflow-x: hidden;
+
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    header {
+
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      backdrop-filter: blur(18px);
+
+      background: rgba(255,255,255,0.72);
+
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+
+    }
+
+    .navbar {
+
+      height: 88px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+    }
+
+    .logo {
+
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+    }
+
+    .logo-icon {
+
+      width: 48px;
+      height: 48px;
+
+      border-radius: 16px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #ffb27a,
+        #dd6d3b
+      );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+      font-size: 22px;
+
+      box-shadow:
+      0 12px 30px rgba(221,109,59,0.28);
+
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .logo p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .button {
+
+      border: none;
+      cursor: pointer;
+
+      padding: 14px 24px;
+
+      border-radius: 999px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #ea7d4d,
+        #d85f2c
+      );
+
+      color: white;
+      font-weight: 600;
+
+      box-shadow:
+      0 12px 30px rgba(221,109,59,0.24);
+
+      transition: .25s ease;
+
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      padding: 44px 0 36px;
+    }
+
+    .hero-card {
+
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 42px;
+
+      min-height: 760px;
+
+      box-shadow: var(--shadow-lg);
+
+    }
+
+    .hero-card img {
+      height: 760px;
+    }
+
+    .hero-overlay {
+
+      position: absolute;
+      inset: 0;
+
+      background:
+      linear-gradient(
+        to right,
+        rgba(0,0,0,.76),
+        rgba(0,0,0,.20)
+      );
+
+    }
+
+    .hero-content {
+
+      position: absolute;
+      inset: 0;
+
+      z-index: 2;
+
+      padding: 72px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      color: white;
+
+      max-width: 860px;
+
+    }
+
+    .badge {
+
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      width: fit-content;
+
+      padding: 10px 16px;
+
+      border-radius: 999px;
+
+      background: rgba(255,255,255,0.12);
+
+      backdrop-filter: blur(14px);
+
+      margin-bottom: 28px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+    }
+
+    .hero h2 {
+
+      font-size: clamp(62px,8vw,118px);
+
+      line-height: .9;
+      letter-spacing: -.08em;
+
+      margin-bottom: 28px;
+
+      font-weight: 900;
+
+    }
+
+    .hero p {
+
+      font-size: 20px;
+      line-height: 1.85;
+
+      opacity: .92;
+
+      max-width: 720px;
+
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-head {
+
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      gap: 42px;
+
+      margin-bottom: 42px;
+
+    }
+
+    .section-head h3 {
+
+      font-size: clamp(46px,5vw,72px);
+
+      line-height: .94;
+      letter-spacing: -.06em;
+
+    }
+
+    .section-head p {
+
+      max-width: 560px;
+
+      color: var(--muted);
+
+      line-height: 1.8;
+
+    }
+
+    .story-layout {
+
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 32px;
+
+    }
+
+    .glass-card {
+
+      background: rgba(255,255,255,0.8);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      border-radius: 38px;
+
+      box-shadow: var(--shadow-md);
+
+      overflow: hidden;
+
+    }
+
+    .story-card {
+      padding: 48px;
+    }
+
+    .story-card p {
+
+      font-size: 19px;
+      line-height: 2;
+
+      color: #2b2927;
+
+      margin-bottom: 30px;
+
+    }
+
+    .story-image img {
+      height: 100%;
+      min-height: 700px;
+    }
+
+    .metrics {
+
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 22px;
+
+      margin-top: 42px;
+
+    }
+
+    .metric-card {
+
+      padding: 34px;
+
+      border-radius: 32px;
+
+      background: rgba(255,255,255,0.82);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      box-shadow: var(--shadow-md);
+
+    }
+
+    .metric-card h4 {
+
+      font-size: 52px;
+      letter-spacing: -.06em;
+
+      margin-bottom: 12px;
+
+    }
+
+    .metric-card p {
+
+      color: var(--muted);
+
+      line-height: 1.7;
+
+    }
+
+    .mission-grid {
+
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 24px;
+
+    }
+
+    .mission-card {
+
+      padding: 42px;
+
+      border-radius: 34px;
+
+      background: rgba(255,255,255,0.82);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      box-shadow: var(--shadow-md);
+
+      transition: .28s ease;
+
+    }
+
+    .mission-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .mission-icon {
+
+      width: 68px;
+      height: 68px;
+
+      border-radius: 22px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #ffb889,
+        #dd6d3b
+      );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 30px;
+
+      margin-bottom: 24px;
+
+      color: white;
+
+      box-shadow:
+      0 12px 28px rgba(221,109,59,0.22);
+
+    }
+
+    .mission-card h4 {
+
+      font-size: 34px;
+      line-height: 1.05;
+      letter-spacing: -.05em;
+
+      margin-bottom: 18px;
+
+    }
+
+    .mission-card p {
+
+      color: var(--muted);
+
+      line-height: 1.9;
+
+      font-size: 17px;
+
+    }
+
+    .values-grid {
+
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 22px;
+
+    }
+
+    .value-card {
+
+      padding: 34px;
+
+      border-radius: 30px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #fff7f2,
+        #fff0e6
+      );
+
+      box-shadow: var(--shadow-md);
+
+    }
+
+    .value-card h5 {
+
+      font-size: 26px;
+      line-height: 1.1;
+      letter-spacing: -.04em;
+
+      margin-bottom: 16px;
+
+    }
+
+    .value-card p {
+
+      color: var(--muted);
+
+      line-height: 1.8;
+
+    }
+
+    .geo-layout {
+
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 32px;
+
+    }
+
+    .geo-card {
+
+      padding: 44px;
+
+      border-radius: 38px;
+
+      background: rgba(255,255,255,0.82);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      box-shadow: var(--shadow-md);
+
+    }
+
+    .geo-card h4 {
+
+      font-size: 42px;
+      line-height: .98;
+      letter-spacing: -.05em;
+
+      margin-bottom: 24px;
+
+    }
+
+    .geo-card p {
+
+      color: var(--muted);
+
+      line-height: 1.9;
+
+      margin-bottom: 34px;
+
+    }
+
+    .universities {
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+
+    }
+
+    .uni {
+
+      padding: 12px 18px;
+
+      border-radius: 999px;
+
+      background: white;
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      box-shadow: var(--shadow-sm);
+
+      font-size: 14px;
+
+    }
+
+    .geo-image img {
+
+      height: 100%;
+
+      min-height: 540px;
+
+      border-radius: 38px;
+
+      box-shadow: var(--shadow-lg);
+
+    }
+
+    .cta {
+
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 42px;
+
+      padding: 84px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #fff4ec,
+        #ffe5d5
+      );
+
+      box-shadow: var(--shadow-lg);
+
+    }
+
+    .cta::after {
+
+      content: "🔥";
+
+      position: absolute;
+
+      right: -10px;
+      bottom: -30px;
+
+      font-size: 180px;
+
+      opacity: .06;
+
+    }
+
+    .cta h3 {
+
+      font-size: clamp(48px,5vw,76px);
+
+      line-height: .92;
+      letter-spacing: -.06em;
+
+      margin-bottom: 24px;
+
+      max-width: 760px;
+
+    }
+
+    .cta p {
+
+      color: var(--muted);
+
+      max-width: 620px;
+
+      line-height: 1.9;
+
+      font-size: 18px;
+
+      margin-bottom: 34px;
+
+    }
+
+    footer {
+      padding: 80px 0;
+    }
+
+    .footer-grid {
+
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 42px;
+
+      border-top: 1px solid rgba(0,0,0,0.06);
+
+      padding-top: 42px;
+
+    }
+
+    .footer-column h5 {
+
+      margin-bottom: 18px;
+
+      font-size: 18px;
+
+    }
+
+    .footer-column a {
+
+      display: block;
+
+      margin-bottom: 14px;
+
+      color: var(--muted);
+
+    }
+
+    .footer-brand p {
+
+      margin-top: 18px;
+
+      color: var(--muted);
+
+      line-height: 1.8;
+
+      max-width: 340px;
+
+    }
+
+    .socials {
+
+      display: flex;
+      gap: 14px;
+
+      margin-top: 22px;
+
+    }
+
+    .social {
+
+      width: 48px;
+      height: 48px;
+
+      border-radius: 18px;
+
+      background: white;
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-shadow: var(--shadow-sm);
+
+    }
+
+    @media (max-width: 1200px) {
+
+      .story-layout,
+      .geo-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics,
+      .values-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+    }
+
+    @media (max-width: 768px) {
+
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero-card,
+      .hero-card img {
+        min-height: 640px;
+        height: 640px;
+      }
+
+      .hero-content {
+        padding: 36px;
+      }
+
+      .hero h2 {
+        font-size: 64px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .story-card {
+        padding: 32px 26px;
+      }
+
+      .metrics,
+      .mission-grid,
+      .values-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta {
+        padding: 44px 30px;
+      }
+
+      .cta h3 {
+        font-size: 48px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+
+  <div class="container navbar">
+
+    <div class="logo">
+
+      <div class="logo-icon">🔥</div>
+
+      <div>
+        <h1>Гуламта</h1>
+        <p>Бурятское студенческое сообщество</p>
+      </div>
+
+    </div>
+
+    <nav>
+
+      <a href="#">Главная</a>
+      <a href="#">О нас</a>
+      <a href="#">Команда</a>
+      <a href="#">Мероприятия</a>
+      <a href="#">Блог</a>
+
+    </nav>
+
+    <button class="button">
+      Присоединиться
+    </button>
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="hero-card">
+
+      <img
+        src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2200&auto=format&fit=crop"
+        alt="Гуламта"
+      >
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+
+        <div class="badge">
+          🔥 О сообществе
+        </div>
+
+        <h2>
+          Гуламта —
+          место,
+          где Москва
+          становится ближе
+        </h2>
+
+        <p>
+
+          Сообщество студентов из Бурятии,
+          объединяющее культуру,
+          дружбу,
+          развитие
+          и чувство дома
+          в большом городе.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <h3>
+          История сообщества
+        </h3>
+      </div>
+
+      <p>
+
+        За несколько лет Гуламта выросла
+        из небольшой инициативы студентов
+        в одно из крупнейших бурятских
+        молодёжных сообществ Москвы.
+
+      </p>
+
+    </div>
+
+    <div class="story-layout">
+
+      <div class="glass-card story-card">
+
+        <p>
+
+          Гуламта была основана
+          17 апреля 2022 года
+          студентами из Бурятии,
+          которые хотели создать
+          пространство поддержки,
+          дружбы
+          и взаимопомощи
+          для ребят,
+          приехавших учиться в Москву.
+
+        </p>
+
+        <p>
+
+          С самого начала главной идеей
+          было объединение студентов
+          разных вузов,
+          факультетов
+          и интересов
+          вокруг общей культуры
+          и сообщества.
+
+        </p>
+
+        <p>
+
+          За эти годы количество активистов
+          выросло в несколько раз,
+          появились собственные направления,
+          клубы,
+          медиа
+          и большие ежегодные мероприятия.
+
+        </p>
+
+        <p>
+
+          Сегодня Гуламта —
+          это не просто организация,
+          а настоящее студенческое комьюнити,
+          где люди находят друзей,
+          проекты,
+          поддержку
+          и своё место в Москве.
+
+        </p>
+
+      </div>
+
+      <div class="glass-card story-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop"
+          alt="Students"
+        >
+
+      </div>
+
+    </div>
+
+    <div class="metrics">
+
+      <div class="metric-card">
+
+        <h4>
+          2000+
+        </h4>
+
+        <p>
+          участников сообщества
+        </p>
+
+      </div>
+
+      <div class="metric-card">
+
+        <h4>
+          70+
+        </h4>
+
+        <p>
+          активистов и организаторов
+        </p>
+
+      </div>
+
+      <div class="metric-card">
+
+        <h4>
+          30+
+        </h4>
+
+        <p>
+          вузов Москвы
+        </p>
+
+      </div>
+
+      <div class="metric-card">
+
+        <h4>
+          20+
+        </h4>
+
+        <p>
+          мероприятий ежегодно
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <h3>
+          Наша миссия
+        </h3>
+      </div>
+
+      <p>
+
+        Мы создаём пространство,
+        где студенты могут чувствовать себя
+        частью сильного
+        и открытого сообщества.
+
+      </p>
+
+    </div>
+
+    <div class="mission-grid">
+
+      <div class="mission-card">
+
+        <div class="mission-icon">
+          🤝
+        </div>
+
+        <h4>
+          Поддержка студентов
+        </h4>
+
+        <p>
+
+          Помогаем адаптироваться в Москве,
+          находить друзей,
+          единомышленников
+          и поддержку в студенческой жизни.
+
+        </p>
+
+      </div>
+
+      <div class="mission-card">
+
+        <div class="mission-icon">
+          🏹
+        </div>
+
+        <h4>
+          Сохранение культуры
+        </h4>
+
+        <p>
+
+          Через мероприятия,
+          творчество,
+          язык
+          и традиции
+          мы сохраняем
+          и популяризируем бурятскую культуру.
+
+        </p>
+
+      </div>
+
+      <div class="mission-card">
+
+        <div class="mission-icon">
+          🔥
+        </div>
+
+        <h4>
+          Создание комьюнити
+        </h4>
+
+        <p>
+
+          Гуламта объединяет студентов
+          из разных вузов
+          и направлений,
+          создавая настоящее
+          молодёжное сообщество.
+
+        </p>
+
+      </div>
+
+      <div class="mission-card">
+
+        <div class="mission-icon">
+          🚀
+        </div>
+
+        <h4>
+          Развитие молодёжи
+        </h4>
+
+        <p>
+
+          Мы поддерживаем инициативы,
+          проекты,
+          творчество,
+          спорт
+          и профессиональное развитие студентов.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <h3>
+          Ценности
+        </h3>
+      </div>
+
+      <p>
+
+        Всё,
+        что делает Гуламту живым
+        и настоящим сообществом.
+
+      </p>
+
+    </div>
+
+    <div class="values-grid">
+
+      <div class="value-card">
+
+        <h5>
+          Взаимопомощь
+        </h5>
+
+        <p>
+
+          Поддержка друг друга —
+          основа сообщества
+          и атмосферы Гуламты.
+
+        </p>
+
+      </div>
+
+      <div class="value-card">
+
+        <h5>
+          Культура
+        </h5>
+
+        <p>
+
+          Мы ценим свои корни,
+          язык,
+          традиции
+          и современную бурятскую идентичность.
+
+        </p>
+
+      </div>
+
+      <div class="value-card">
+
+        <h5>
+          Открытость
+        </h5>
+
+        <p>
+
+          В Гуламте рады каждому —
+          независимо от вуза,
+          курса
+          или опыта.
+
+        </p>
+
+      </div>
+
+      <div class="value-card">
+
+        <h5>
+          Инициативность
+        </h5>
+
+        <p>
+
+          Мы поддерживаем идеи,
+          проекты
+          и желание создавать что-то новое вместе.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <h3>
+          География
+        </h3>
+      </div>
+
+      <p>
+
+        Студенты Гуламты учатся
+        в ведущих вузах Москвы
+        и представляют самые разные направления.
+
+      </p>
+
+    </div>
+
+    <div class="geo-layout">
+
+      <div class="geo-card">
+
+        <h4>
+          Более 30 вузов
+          и сотни студентов
+        </h4>
+
+        <p>
+
+          Сообщество объединяет студентов
+          технических,
+          гуманитарных,
+          медицинских
+          и творческих направлений.
+
+        </p>
+
+        <div class="universities">
+
+          <div class="uni">МГУ</div>
+          <div class="uni">ВШЭ</div>
+          <div class="uni">МГТУ им. Баумана</div>
+          <div class="uni">РАНХиГС</div>
+          <div class="uni">РУДН</div>
+          <div class="uni">МФТИ</div>
+          <div class="uni">МИФИ</div>
+          <div class="uni">Сеченовский</div>
+          <div class="uni">МГИМО</div>
+
+        </div>
+
+      </div>
+
+      <div class="geo-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop"
+          alt="Students"
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="cta">
+
+      <h3>
+        Присоединяйся
+        к Гуламте
+      </h3>
+
+      <p>
+
+        Найди друзей,
+        проекты,
+        поддержку
+        и своё комьюнити
+        в Москве.
+
+      </p>
+
+      <button class="button">
+        Вступить в сообщество
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+
+      <div class="logo">
+
+        <div class="logo-icon">
+          🔥
+        </div>
+
+        <div>
+          <h1>Гуламта</h1>
+          <p>Бурятское студенческое сообщество</p>
+        </div>
+
+      </div>
+
+      <p>
+
+        Пространство студентов из Бурятии,
+        объединяющее культуру,
+        дружбу и развитие в Москве.
+
+      </p>
+
+      <div class="socials">
+
+        <div class="social">TG</div>
+        <div class="social">VK</div>
+        <div class="social">IG</div>
+
+      </div>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h5>Навигация</h5>
+
+      <a href="#">Главная</a>
+      <a href="#">О нас</a>
+      <a href="#">Команда</a>
+      <a href="#">Блог</a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h5>Направления</h5>
+
+      <a href="#">Music Club</a>
+      <a href="#">Sport Club</a>
+      <a href="#">Карьера</a>
+      <a href="#">Поступление</a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h5>Контакты</h5>
+
+      <a href="#">Telegram</a>
+      <a href="#">VK</a>
+      <a href="#">Instagram</a>
+      <a href="#">Email</a>
+
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+</html>

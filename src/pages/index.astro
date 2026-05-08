@@ -1,214 +1,806 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getArticles, getImageUrl } from '../lib/strapi';
-import type { ArticlesItem } from '../types/strapi';
+import Layout from "../layouts/Layout.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+import dulaanReading from "../assets/дулаан_читает.svg";
+import dulaanTennis from "../assets/дулаан_теннис.svg";
+import dulaanHandsUp from "../assets/дулаан_руки_вверх.svg";
+import {
+  articles,
+  departments,
+  events,
+  galleryImages,
+  heroImage,
+  stats,
+  teamImage,
+} from "../lib/mockData";
 
-const articles = await getArticles();
-
-// Форматирование даты
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
-}
-
-// Транслитерация категорий
-function getCategoryName(category: ArticlesItem['category']): string {
-  const categories: Record<ArticlesItem['category'], string> = {
-    news: 'Новости',
-    events: 'События',
-    announcements: 'Объявления',
-    academics: 'Академическая жизнь'
-  };
-  return categories[category] || category;
-}
+const latestArticles = articles.slice(0, 3);
+const dulaanStates = [
+  {
+    image: dulaanHandsUp.src,
+    phrase: "Сайн байна!",
+    label: "Дулаан приветствует гостей",
+  },
+  {
+    image: dulaanReading.src,
+    phrase: "Эрдэм номдо шамдая!",
+    label: "Дулаан читает",
+  },
+  {
+    image: dulaanTennis.src,
+    phrase: "Урагшаа!",
+    label: "Дулаан зовёт двигаться вперёд",
+  },
+];
 ---
 
-<Layout title="Студенческие новости">
-  <main class="container">
-    <h1>Студенческие новости</h1>
-    
-    {articles.length === 0 ? (
-      <p class="no-articles">Новостей пока нет</p>
-    ) : (
-      <div class="articles-grid">
-        {articles.map((item: ArticlesItem) => (
-          <article class="articles-card">
-            {getImageUrl(item.featuredImage, 'small') && (
-              <a href={`/articles/${item.slug}`} class="articles-card__image-link">
-                <img 
-                  src={getImageUrl(item.featuredImage, 'small')!}
-                  alt={item.title}
-                  loading="lazy"
-                  class="articles-card__image"
-                />
-              </a>
-            )}
-            
-            <div class="articles-card__content">
-              <div class="articles-card__meta">
-                <span class="articles-card__category">{getCategoryName(item.category)}</span>
-                <time class="articles-card__date" datetime={item.publishedAt}>
-                  {formatDate(item.publishedAt)}
-                </time>
-              </div>
-              
-              <h2 class="articles-card__title">
-                <a href={`/articles/${item.slug}`}>{item.title}</a>
-              </h2>
-              
-              <p class="articles-card__excerpt">{item.excerpt}</p>
-              
-              <div class="articles-card__footer">
-                <a href={`/articles/${item.slug}`} class="articles-card__read-more">
-                  Читать далее →
-                </a>
-                <span class="articles-card__views">👁️ {item.views}</span>
-              </div>
-            </div>
-          </article>
-        ))}
+<Layout>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Студенты из Бурятии в Москве</span>
+          <h1>Бурятское студенческое землячество Москвы</h1>
+          <p>
+            Сообщество студентов из Бурятии, объединяющее культуру, дружбу и
+            развитие. Помогаем адаптироваться, знакомим с людьми и создаём
+            события, где Москва становится ближе.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="button"
+              href="https://cdn.mtdv.me/video/rick.mp4"
+              target="_blank"
+              rel="noreferrer">Присоединиться</a
+            >
+            <a class="button-secondary" href="/events">Смотреть события</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="/images/team.jpg" alt="Мероприятие Гуламты" />
+          <div class="hero-card">
+            <strong>Гуламта</strong>
+            <span>культура, поддержка и студенческое сообщество</span>
+          </div>
+        </div>
       </div>
-    )}
-  </main>
+    </div>
+  </section>
+
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        {
+          stats.map((stat) => (
+            <div class="stat-card card">
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Мини-медиа</span>
+          <h2 class="section-title">Последние новости и анонсы</h2>
+        </div>
+        <p class="section-lead">
+          Публикуем события, рубрики, карьерные материалы, полезные гайды и
+          отчёты с мероприятий.
+        </p>
+      </div>
+      <div class="grid-3">
+        {latestArticles.map((article) => <ArticleCard article={article} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section directions">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Направления</span>
+          <h2 class="section-title directions-title">
+            Отделы, которые двигают Гуламту
+          </h2>
+        </div>
+        <p class="section-lead">
+          Каждое направление отвечает за понятную часть жизни сообщества: от
+          медиа и спорта до финансов и адаптации новых участников.
+        </p>
+      </div>
+      <div class="grid-3">
+        {
+          departments.map((department) => (
+            <article class="department-card card">
+              <h3>{department.title}</h3>
+              <p>{department.description}</p>
+              <small>Руководитель: {department.lead}</small>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Ближайшее</span>
+          <h2 class="section-title">Календарь событий</h2>
+        </div>
+        <a class="button-secondary" href="/events">Все мероприятия</a>
+      </div>
+      <div class="events-strip">
+        {
+          events.slice(0, 3).map((event) => (
+            <article class="event-card">
+              <img src={event.image} alt={event.title} />
+              <div>
+                <span class="badge">{event.category}</span>
+                <h3>{event.title}</h3>
+                <p>{event.description}</p>
+                <small>
+                  {event.date} · {event.place}
+                </small>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section gallery-section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Галерея</span>
+          <h2 class="section-title">Наше медиа</h2>
+        </div>
+      </div>
+      <div class="gallery-grid">
+        {
+          galleryImages.map((item) => (
+            <button
+              class="gallery-item"
+              type="button"
+              data-gallery-open
+              data-gallery-index={galleryImages.indexOf(item)}
+              aria-label={`Открыть ${item.title}`}
+            >
+              <img src={item.image} alt={item.title} />
+              <span>{item.title}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="gallery-modal" data-gallery-modal aria-hidden="true">
+    <div class="gallery-backdrop" data-gallery-close></div>
+    <div
+      class="gallery-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Наше медиа"
+    >
+      <button
+        class="gallery-close"
+        type="button"
+        data-gallery-close
+        aria-label="Закрыть">×</button
+      >
+      <button
+        class="gallery-nav gallery-prev"
+        type="button"
+        data-gallery-prev
+        aria-label="Предыдущее изображение">‹</button
+      >
+      <figure>
+        <img
+          data-gallery-image
+          src={galleryImages[0].image}
+          alt={galleryImages[0].title}
+        />
+        <figcaption data-gallery-caption>{galleryImages[0].title}</figcaption>
+      </figure>
+      <button
+        class="gallery-nav gallery-next"
+        type="button"
+        data-gallery-next
+        aria-label="Следующее изображение">›</button
+      >
+    </div>
+  </div>
+
+  <section class="section cta">
+    <div class="container">
+      <div class="cta-box">
+        <img src={teamImage} alt="Студенты Гуламты" />
+        <div class="cta-content">
+          <span class="eyebrow">Открытый набор</span>
+          <h2>Присоединяйся к Гуламте</h2>
+          <p>
+            Напиши в Telegram-бота, расскажи о себе и выбери направление, где
+            хочешь быть полезен.
+          </p>
+          <a
+            class="button"
+            href="https://cdn.mtdv.me/video/rick.mp4"
+            target="_blank"
+            rel="noreferrer">Перейти в Telegram</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <button class="dulaan" type="button" aria-label={dulaanStates[0].label}>
+    <span class="dulaan-tooltip" data-dulaan-tooltip>{dulaanStates[0].phrase}</span>
+    <img data-dulaan-image src={dulaanStates[0].image} alt="" />
+  </button>
 </Layout>
 
 <style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+  .hero {
+    padding: 64px 0 32px;
   }
-  
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: #1a1a1a;
-  }
-  
-  .articles-grid {
+
+  .hero-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 48px;
+    align-items: center;
   }
-  
-  .articles-card {
-    background: white;
-    border-radius: 12px;
+
+  h1 {
+    max-width: 760px;
+    margin-bottom: 28px;
+    font-size: clamp(52px, 7vw, 92px);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.92;
+  }
+
+  .hero-copy p {
+    max-width: 640px;
+    margin-bottom: 34px;
+    color: var(--muted);
+    font-size: 20px;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .hero-image {
+    position: relative;
+    height: 700px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
   }
-  
-  .articles-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  }
-  
-  .articles-card__image-link {
-    display: block;
-    overflow: hidden;
-    aspect-ratio: 16/9;
-  }
-  
-  .articles-card__image {
-    width: 100%;
+
+  .hero-image img {
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s;
   }
-  
-  .articles-card:hover .articles-card__image {
-    transform: scale(1.05);
+
+  .hero-image::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.34), transparent 55%);
   }
-  
-  .articles-card__content {
-    padding: 1.5rem;
+
+  .hero-card {
+    position: absolute;
+    right: 28px;
+    bottom: 28px;
+    left: 28px;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.14);
+    color: white;
+    padding: 24px;
+    backdrop-filter: blur(24px);
   }
-  
-  .articles-card__meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
-    font-size: 0.875rem;
+
+  .hero-card strong,
+  .hero-card span {
+    display: block;
   }
-  
-  .articles-card__category {
-    background: #e0e7ff;
-    color: #4338ca;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    font-weight: 500;
+
+  .hero-card strong {
+    font-size: 28px;
   }
-  
-  .articles-card__date {
-    color: #6b7280;
+
+  .stats-section {
+    padding: 36px 0 54px;
   }
-  
-  .articles-card__title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    line-height: 1.4;
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
   }
-  
-  .articles-card__title a {
-    color: #1a1a1a;
-    text-decoration: none;
+
+  .stat-card {
+    padding: 28px;
   }
-  
-  .articles-card__title a:hover {
-    color: #4338ca;
+
+  .stat-card strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 42px;
+    line-height: 1;
   }
-  
-  .articles-card__excerpt {
-    color: #4b5563;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+
+  .stat-card span,
+  .department-card p,
+  .department-card small,
+  .event-card p,
+  .event-card small {
+    color: var(--muted);
+  }
+
+  .department-card {
+    padding: 32px;
+  }
+
+  .directions .section-head {
+    display: grid;
+    grid-template-columns: minmax(620px, 1fr) minmax(320px, 520px);
+    align-items: end;
+  }
+
+  .directions .section-head > div {
+    min-width: 0;
+  }
+
+  .directions-title {
+    max-width: 900px;
+    font-size: clamp(38px, 4.2vw, 58px);
+    line-height: 1.04;
+  }
+
+  .department-icon {
+    display: grid;
+    width: 68px;
+    height: 68px;
+    place-items: center;
+    margin-bottom: 22px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #ffe1cf, #ffd0b4);
+    color: var(--accent-hover);
+    font-weight: 900;
+  }
+
+  .department-card h3 {
+    margin-bottom: 12px;
+    font-size: 28px;
+  }
+
+  .department-card small {
+    display: block;
+    margin-top: 22px;
+    font-weight: 700;
+  }
+
+  .events-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .event-card {
     overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: white;
+    box-shadow: var(--shadow-md);
   }
-  
-  .articles-card__footer {
-    display: flex;
-    justify-content: space-between;
+
+  .event-card img {
+    height: 250px;
+  }
+
+  .event-card div {
+    padding: 24px;
+  }
+
+  .event-card h3 {
+    margin: 14px 0 10px;
+    font-size: 25px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 0;
+    border-radius: 24px;
+    background: transparent;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .gallery-item img {
+    height: 260px;
+    transition: transform 0.28s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.04);
+  }
+
+  .gallery-item span {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.84);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 800;
+    padding: 8px 12px;
+    backdrop-filter: blur(12px);
+  }
+
+  .gallery-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
     align-items: center;
+    justify-content: center;
+    padding: 24px;
   }
-  
-  .articles-card__read-more {
-    color: #4338ca;
-    text-decoration: none;
-    font-weight: 500;
+
+  .gallery-modal.is-open {
+    display: flex;
   }
-  
-  .articles-card__read-more:hover {
-    text-decoration: underline;
+
+  .gallery-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(29, 28, 27, 0.72);
+    backdrop-filter: blur(10px);
   }
-  
-  .articles-card__views {
-    color: #6b7280;
-    font-size: 0.875rem;
+
+  .gallery-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 1040px);
+    border-radius: 32px;
+    background: white;
+    box-shadow: var(--shadow-lg);
+    padding: 18px;
   }
-  
-  .no-articles {
-    text-align: center;
-    padding: 4rem;
-    color: #6b7280;
-    font-size: 1.125rem;
+
+  .gallery-dialog figure {
+    overflow: hidden;
+    border-radius: 24px;
+    background: white;
   }
-  
-  @media (max-width: 768px) {
-    .articles-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
+
+  .gallery-dialog img {
+    height: min(72vh, 680px);
+    object-fit: contain;
+    background: white;
+  }
+
+  .gallery-dialog figcaption {
+    background: white;
+    font-size: 18px;
+    font-weight: 900;
+    padding: 18px 20px 4px;
+  }
+
+  .gallery-close,
+  .gallery-nav {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 999px;
+    background: white;
+    box-shadow: var(--shadow-md);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .gallery-close {
+    top: -16px;
+    right: -16px;
+    width: 44px;
+    height: 44px;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .gallery-nav {
+    top: 50%;
+    width: 52px;
+    height: 52px;
+    transform: translateY(-50%);
+    font-size: 40px;
+  }
+
+  .gallery-prev {
+    left: -18px;
+  }
+
+  .gallery-next {
+    right: -18px;
+  }
+
+  .cta-box {
+    position: relative;
+    min-height: 420px;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: #f5ebe3;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cta-box img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+
+  .cta-box::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: linear-gradient(
+      to right,
+      rgba(250, 247, 244, 0.97),
+      rgba(250, 247, 244, 0.76),
+      rgba(250, 247, 244, 0.1)
+    );
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 580px;
+    padding: 64px;
+  }
+
+  .cta-content h2 {
+    margin-bottom: 22px;
+    font-size: clamp(40px, 5vw, 70px);
+    line-height: 0.95;
+  }
+
+  .cta-content p {
+    margin-bottom: 28px;
+    color: var(--muted);
+    font-size: 18px;
+  }
+
+  .dulaan {
+    position: fixed;
+    right: 24px;
+    bottom: 22px;
+    z-index: 80;
+    width: clamp(92px, 10vw, 142px);
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.18));
+    transform-origin: 50% 100%;
+    animation: dulaan-breathe 3.2s ease-in-out infinite;
+  }
+
+  .dulaan img {
+    width: 100%;
+    height: auto;
+    transition:
+      opacity 0.18s ease,
+      transform 0.28s ease;
+  }
+
+  .dulaan:hover img,
+  .dulaan:focus-visible img {
+    transform: translateY(-6px) rotate(-2deg);
+  }
+
+  .dulaan-tooltip {
+    position: absolute;
+    right: 72%;
+    bottom: 78%;
+    width: max-content;
+    max-width: 220px;
+    border: 1px solid var(--border);
+    border-radius: 18px 18px 4px 18px;
+    background: white;
+    box-shadow: var(--shadow-md);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.35;
+    opacity: 0;
+    padding: 12px 14px;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.96);
+    transition: 0.2s ease;
+  }
+
+  .dulaan:hover .dulaan-tooltip,
+  .dulaan:focus-visible .dulaan-tooltip {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  @keyframes dulaan-breathe {
+    0%,
+    100% {
+      transform: translateY(0);
     }
-    
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @media (max-width: 1120px) {
+    .hero-grid,
+    .events-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-image {
+      height: 560px;
+    }
+
+    .stats-grid,
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .directions .section-head {
+      display: block;
+    }
+  }
+
+  @media (max-width: 640px) {
     h1 {
-      font-size: 1.75rem;
+      font-size: 48px;
+    }
+
+    .hero-image {
+      height: 430px;
+      border-radius: 28px;
+    }
+
+    .stats-grid,
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-content {
+      padding: 32px;
+    }
+
+    .dulaan {
+      right: 12px;
+      bottom: 14px;
+      width: 88px;
+    }
+
+    .dulaan-tooltip {
+      right: 36%;
+      bottom: 92%;
+      max-width: 180px;
+      font-size: 13px;
     }
   }
 </style>
+
+<script define:vars={{ galleryImages, dulaanStates }}>
+  const modal = document.querySelector("[data-gallery-modal]");
+  const image = document.querySelector("[data-gallery-image]");
+  const caption = document.querySelector("[data-gallery-caption]");
+  const openButtons = document.querySelectorAll("[data-gallery-open]");
+  const dulaan = document.querySelector(".dulaan");
+  const dulaanImage = document.querySelector("[data-dulaan-image]");
+  const dulaanTooltip = document.querySelector("[data-dulaan-tooltip]");
+  let currentIndex = 0;
+  let currentDulaanIndex = 0;
+
+  const render = () => {
+    const item = galleryImages[currentIndex];
+    image.src = item.image;
+    image.alt = item.title;
+    caption.textContent = item.title;
+  };
+
+  const openModal = (index) => {
+    currentIndex = index;
+    render();
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+
+  const move = (direction) => {
+    currentIndex =
+      (currentIndex + direction + galleryImages.length) % galleryImages.length;
+    render();
+  };
+
+  openButtons.forEach((button) => {
+    button.addEventListener("click", () =>
+      openModal(Number(button.dataset.galleryIndex)),
+    );
+  });
+
+  document.querySelectorAll("[data-gallery-close]").forEach((button) => {
+    button.addEventListener("click", closeModal);
+  });
+
+  document
+    .querySelector("[data-gallery-prev]")
+    ?.addEventListener("click", () => move(-1));
+  document
+    .querySelector("[data-gallery-next]")
+    ?.addEventListener("click", () => move(1));
+
+  document.addEventListener("keydown", (event) => {
+    if (!modal.classList.contains("is-open")) return;
+    if (event.key === "Escape") closeModal();
+    if (event.key === "ArrowLeft") move(-1);
+    if (event.key === "ArrowRight") move(1);
+  });
+
+  const setDulaanState = (index) => {
+    if (!dulaan || !dulaanImage || !dulaanTooltip) return;
+    if (index === currentDulaanIndex) return;
+    currentDulaanIndex = index;
+    const state = dulaanStates[index];
+    dulaanImage.style.opacity = "0";
+    window.setTimeout(() => {
+      dulaanImage.src = state.image;
+      dulaanImage.alt = "";
+      dulaanTooltip.textContent = state.phrase;
+      dulaan.setAttribute("aria-label", state.label);
+      dulaanImage.style.opacity = "1";
+    }, 140);
+  };
+
+  const updateDulaanByScroll = () => {
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const progress = window.scrollY / maxScroll;
+    const nextIndex = Math.min(dulaanStates.length - 1, Math.floor(progress * dulaanStates.length));
+    setDulaanState(nextIndex);
+  };
+
+  updateDulaanByScroll();
+  window.addEventListener("scroll", updateDulaanByScroll, { passive: true });
+</script>

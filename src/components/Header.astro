@@ -1,0 +1,211 @@
+---
+import logoUrl from "../assets/logo.svg";
+
+const navItems = [
+  { href: "/", label: "Главная" },
+  { href: "/about", label: "О нас" },
+  { href: "/team", label: "Команда" },
+  { href: "/events", label: "Мероприятия" },
+  { href: "/articles", label: "Блог" },
+  { href: "/students", label: "Новым студентам" },
+  { href: "/partners", label: "Партнёрам" },
+  { href: "/contacts", label: "Контакты" },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <a href="/" class="logo" aria-label="Гуламта">
+        <img class="logo-icon" src={logoUrl.src} alt="" />
+        <span>
+          <strong>Гуламта</strong>
+          <small>Бурятское землячество</small>
+        </span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Открыть меню"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="navMenu" aria-label="Основная навигация">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class:list={{
+                active:
+                  currentPath === item.href ||
+                  (item.href !== "/" && currentPath.startsWith(item.href)),
+              }}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <a
+        class="header-cta"
+        href="https://t.me/gulamta_students"
+        target="_blank"
+        rel="noreferrer">Telegram</a
+      >
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(18px);
+  }
+
+  .navbar {
+    display: flex;
+    min-height: 86px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .logo {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(223, 109, 59, 0.28);
+    object-fit: contain;
+  }
+
+  .logo strong {
+    display: block;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .logo small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .nav-menu a {
+    padding: 10px 0;
+    transition: 0.2s ease;
+  }
+
+  .nav-menu a:hover,
+  .nav-menu a.active {
+    color: var(--accent);
+  }
+
+  .header-cta {
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: var(--text);
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 12px 18px;
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: white;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    margin: 5px auto;
+    background: var(--text);
+  }
+
+  @media (max-width: 1120px) {
+    .menu-toggle {
+      display: block;
+    }
+
+    .nav-menu {
+      position: absolute;
+      top: 86px;
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.94);
+      padding: 18px 24px 24px;
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-menu.active {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .navbar {
+      min-height: 74px;
+    }
+
+    .logo small,
+    .header-cta {
+      display: none;
+    }
+
+    .nav-menu {
+      top: 74px;
+    }
+  }
+</style>
+
+<script>
+  const menuBtn = document.getElementById("menuToggle");
+  const navMenu = document.getElementById("navMenu");
+
+  if (menuBtn && navMenu) {
+    menuBtn.addEventListener("click", () => {
+      const isOpen = navMenu.classList.toggle("active");
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+    });
+  }
+</script>

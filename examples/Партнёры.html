@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Партнёрам — Гуламта</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+
+      --bg: #faf7f4;
+      --bg-soft: #fffdfb;
+
+      --text: #1a1918;
+      --muted: #6f6964;
+
+      --accent: #dd6d3b;
+
+      --card: rgba(255,255,255,0.82);
+      --border: rgba(0,0,0,0.06);
+
+      --shadow-sm: 0 4px 18px rgba(0,0,0,0.04);
+      --shadow-md: 0 16px 48px rgba(0,0,0,0.06);
+      --shadow-lg: 0 30px 80px rgba(0,0,0,0.12);
+
+      --radius-sm: 18px;
+      --radius-md: 28px;
+      --radius-lg: 42px;
+
+      --container: 1380px;
+
+    }
+
+    body {
+
+      font-family: Inter, sans-serif;
+
+      background:
+      linear-gradient(
+        to bottom,
+        #fffdfb 0%,
+        #faf7f4 100%
+      );
+
+      color: var(--text);
+
+      overflow-x: hidden;
+
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    header {
+
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      backdrop-filter: blur(18px);
+
+      background: rgba(255,255,255,0.72);
+
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+
+    }
+
+    .navbar {
+
+      height: 88px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+    }
+
+    .logo {
+
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+    }
+
+    .logo-icon {
+
+      width: 48px;
+      height: 48px;
+
+      border-radius: 16px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #ffb27a,
+        #dd6d3b
+      );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+      font-size: 22px;
+
+      box-shadow:
+      0 12px 30px rgba(221,109,59,0.28);
+
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .logo p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .button {
+
+      border: none;
+      cursor: pointer;
+
+      padding: 14px 24px;
+
+      border-radius: 999px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #ea7d4d,
+        #d85f2c
+      );
+
+      color: white;
+      font-weight: 600;
+
+      box-shadow:
+      0 12px 30px rgba(221,109,59,0.24);
+
+      transition: .25s ease;
+
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      padding: 44px 0 36px;
+    }
+
+    .hero-card {
+
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 42px;
+
+      min-height: 700px;
+
+      box-shadow: var(--shadow-lg);
+
+    }
+
+    .hero-card img {
+      height: 700px;
+    }
+
+    .hero-overlay {
+
+      position: absolute;
+      inset: 0;
+
+      background:
+      linear-gradient(
+        to right,
+        rgba(0,0,0,.76),
+        rgba(0,0,0,.24)
+      );
+
+    }
+
+    .hero-content {
+
+      position: absolute;
+      inset: 0;
+
+      z-index: 2;
+
+      padding: 72px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      color: white;
+
+      max-width: 860px;
+
+    }
+
+    .badge {
+
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      width: fit-content;
+
+      padding: 10px 16px;
+
+      border-radius: 999px;
+
+      background: rgba(255,255,255,0.12);
+
+      backdrop-filter: blur(14px);
+
+      margin-bottom: 28px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+    }
+
+    .hero h2 {
+
+      font-size: clamp(58px,8vw,112px);
+
+      line-height: .9;
+      letter-spacing: -.08em;
+
+      margin-bottom: 28px;
+
+      font-weight: 900;
+
+    }
+
+    .hero p {
+
+      font-size: 20px;
+      line-height: 1.9;
+
+      max-width: 720px;
+
+      opacity: .92;
+
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-head {
+
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      gap: 42px;
+
+      margin-bottom: 42px;
+
+    }
+
+    .section-head h3 {
+
+      font-size: clamp(44px,5vw,72px);
+
+      line-height: .94;
+      letter-spacing: -.06em;
+
+    }
+
+    .section-head p {
+
+      max-width: 560px;
+
+      color: var(--muted);
+
+      line-height: 1.8;
+
+    }
+
+    .stats-grid {
+
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 22px;
+
+      margin-top: 22px;
+
+    }
+
+    .stat-card {
+
+      padding: 36px;
+
+      border-radius: 32px;
+
+      background: rgba(255,255,255,0.82);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      box-shadow: var(--shadow-md);
+
+    }
+
+    .stat-card h4 {
+
+      font-size: 54px;
+      line-height: .9;
+      letter-spacing: -.06em;
+
+      margin-bottom: 12px;
+
+    }
+
+    .stat-card p {
+
+      color: var(--muted);
+
+      line-height: 1.8;
+
+    }
+
+    .partners-grid {
+
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 26px;
+
+    }
+
+    .partner-card {
+
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 34px;
+
+      background: rgba(255,255,255,0.82);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      box-shadow: var(--shadow-md);
+
+      transition: .3s ease;
+
+    }
+
+    .partner-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .partner-image img {
+      height: 240px;
+    }
+
+    .partner-content {
+      padding: 32px;
+    }
+
+    .partner-category {
+
+      display: inline-flex;
+
+      padding: 8px 14px;
+
+      border-radius: 999px;
+
+      background: #fff2e8;
+
+      color: var(--accent);
+
+      font-size: 13px;
+      font-weight: 600;
+
+      margin-bottom: 20px;
+
+    }
+
+    .partner-content h4 {
+
+      font-size: 34px;
+      line-height: .96;
+      letter-spacing: -.05em;
+
+      margin-bottom: 18px;
+
+    }
+
+    .partner-content p {
+
+      color: var(--muted);
+
+      line-height: 1.9;
+
+      margin-bottom: 24px;
+
+    }
+
+    .partner-tags {
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+
+    }
+
+    .tag {
+
+      padding: 10px 14px;
+
+      border-radius: 999px;
+
+      background: rgba(255,255,255,0.92);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      box-shadow: var(--shadow-sm);
+
+      font-size: 13px;
+
+    }
+
+    .collab-layout {
+
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 32px;
+
+      align-items: stretch;
+
+    }
+
+    .collab-card,
+    .form-card {
+
+      border-radius: 38px;
+
+      background: rgba(255,255,255,0.82);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      box-shadow: var(--shadow-lg);
+
+    }
+
+    .collab-card {
+
+      padding: 48px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+    }
+
+    .collab-card h4 {
+
+      font-size: 56px;
+      line-height: .92;
+      letter-spacing: -.06em;
+
+      margin-bottom: 24px;
+
+    }
+
+    .collab-card p {
+
+      color: var(--muted);
+
+      line-height: 2;
+
+      font-size: 17px;
+
+      margin-bottom: 30px;
+
+    }
+
+    .collab-list {
+
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      margin-top: 24px;
+
+    }
+
+    .collab-item {
+
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      padding: 16px 18px;
+
+      border-radius: 20px;
+
+      background: rgba(255,255,255,0.9);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      box-shadow: var(--shadow-sm);
+
+    }
+
+    .collab-item span {
+
+      width: 36px;
+      height: 36px;
+
+      border-radius: 12px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #ffb889,
+        #dd6d3b
+      );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+
+      flex-shrink: 0;
+
+    }
+
+    .form-card {
+      padding: 48px;
+    }
+
+    .form-card h4 {
+
+      font-size: 48px;
+      line-height: .95;
+      letter-spacing: -.06em;
+
+      margin-bottom: 18px;
+
+    }
+
+    .form-card p {
+
+      color: var(--muted);
+
+      line-height: 1.9;
+
+      margin-bottom: 32px;
+
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-label {
+
+      display: block;
+
+      margin-bottom: 12px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+    }
+
+    .input,
+    .textarea {
+
+      width: 100%;
+
+      border: none;
+      outline: none;
+
+      padding: 18px 20px;
+
+      border-radius: 22px;
+
+      background: rgba(255,255,255,0.92);
+
+      border: 1px solid rgba(0,0,0,0.06);
+
+      font-family: inherit;
+      font-size: 15px;
+
+      transition: .2s ease;
+
+    }
+
+    .input:focus,
+    .textarea:focus {
+
+      border-color: rgba(221,109,59,.35);
+
+      box-shadow:
+      0 0 0 4px rgba(221,109,59,.08);
+
+    }
+
+    .textarea {
+
+      min-height: 160px;
+
+      resize: vertical;
+
+    }
+
+    footer {
+      padding: 80px 0;
+    }
+
+    .footer-grid {
+
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 42px;
+
+      border-top: 1px solid rgba(0,0,0,0.06);
+
+      padding-top: 42px;
+
+    }
+
+    .footer-column h5 {
+
+      margin-bottom: 18px;
+
+      font-size: 18px;
+
+    }
+
+    .footer-column a {
+
+      display: block;
+
+      margin-bottom: 14px;
+
+      color: var(--muted);
+
+    }
+
+    .footer-brand p {
+
+      margin-top: 18px;
+
+      color: var(--muted);
+
+      line-height: 1.8;
+
+      max-width: 340px;
+
+    }
+
+    .socials {
+
+      display: flex;
+      gap: 14px;
+
+      margin-top: 22px;
+
+    }
+
+    .social {
+
+      width: 48px;
+      height: 48px;
+
+      border-radius: 18px;
+
+      background: white;
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-shadow: var(--shadow-sm);
+
+    }
+
+    @media (max-width: 1200px) {
+
+      .stats-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .partners-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .collab-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+    }
+
+    @media (max-width: 768px) {
+
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero-card,
+      .hero-card img {
+        min-height: 620px;
+        height: 620px;
+      }
+
+      .hero-content {
+        padding: 36px;
+      }
+
+      .hero h2 {
+        font-size: 62px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .stats-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .collab-card,
+      .form-card {
+        padding: 34px 26px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+
+  <div class="container navbar">
+
+    <div class="logo">
+
+      <div class="logo-icon">🔥</div>
+
+      <div>
+        <h1>Гуламта</h1>
+        <p>Бурятское студенческое сообщество</p>
+      </div>
+
+    </div>
+
+    <nav>
+
+      <a href="#">Главная</a>
+      <a href="#">О нас</a>
+      <a href="#">Команда</a>
+      <a href="#">Мероприятия</a>
+      <a href="#">Блог</a>
+
+    </nav>
+
+    <button class="button">
+      Связаться
+    </button>
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="hero-card">
+
+      <img
+        src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2200&auto=format&fit=crop"
+        alt="Партнёры"
+      >
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+
+        <div class="badge">
+          🤝 Партнёрам
+        </div>
+
+        <h2>
+          Создаём
+          проекты
+          и события
+          вместе
+        </h2>
+
+        <p>
+
+          Гуламта сотрудничает
+          с брендами,
+          организациями,
+          университетами
+          и молодёжными инициативами,
+          создавая проекты для студентов
+          и бурятского сообщества в Москве.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <h3>
+          Гуламта
+          в цифрах
+        </h3>
+      </div>
+
+      <p>
+
+        Мы регулярно проводим
+        мероприятия,
+        создаём контент
+        и объединяем активную
+        студенческую аудиторию Москвы.
+
+      </p>
+
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+
+        <h4>
+          2000+
+        </h4>
+
+        <p>
+          участников сообщества
+        </p>
+
+      </div>
+
+      <div class="stat-card">
+
+        <h4>
+          300k
+        </h4>
+
+        <p>
+          месячный охват контента
+        </p>
+
+      </div>
+
+      <div class="stat-card">
+
+        <h4>
+          20+
+        </h4>
+
+        <p>
+          мероприятий ежегодно
+        </p>
+
+      </div>
+
+      <div class="stat-card">
+
+        <h4>
+          30+
+        </h4>
+
+        <p>
+          вузов Москвы
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <h3>
+          С кем
+          мы работали
+        </h3>
+      </div>
+
+      <p>
+
+        Примеры партнёрств,
+        коллабораций
+        и совместных мероприятий,
+        которые мы уже реализовали.
+
+      </p>
+
+    </div>
+
+    <div class="partners-grid">
+
+      <div class="partner-card">
+
+        <div class="partner-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop"
+            alt="Фестиваль"
+          >
+
+        </div>
+
+        <div class="partner-content">
+
+          <div class="partner-category">
+            Культурное партнёрство
+          </div>
+
+          <h4>
+            Фестиваль
+            бурятской культуры
+          </h4>
+
+          <p>
+
+            Совместная организация
+            культурного фестиваля,
+            концертов,
+            медиа-поддержки
+            и молодёжных активностей.
+
+          </p>
+
+          <div class="partner-tags">
+
+            <div class="tag">
+              🎭 Event
+            </div>
+
+            <div class="tag">
+              📸 Media
+            </div>
+
+            <div class="tag">
+              🤝 Partnership
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="partner-card">
+
+        <div class="partner-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop"
+            alt="Карьерное"
+          >
+
+        </div>
+
+        <div class="partner-content">
+
+          <div class="partner-category">
+            Образование & карьера
+          </div>
+
+          <h4>
+            Карьерный
+            networking day
+          </h4>
+
+          <p>
+
+            Совместные лекции,
+            карьерные встречи,
+            стажировки
+            и networking
+            для студентов Москвы.
+
+          </p>
+
+          <div class="partner-tags">
+
+            <div class="tag">
+              💼 Career
+            </div>
+
+            <div class="tag">
+              🚀 Students
+            </div>
+
+            <div class="tag">
+              🎓 Education
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="partner-card">
+
+        <div class="partner-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?q=80&w=1600&auto=format&fit=crop"
+            alt="Sport"
+          >
+
+        </div>
+
+        <div class="partner-content">
+
+          <div class="partner-category">
+            Спортивное направление
+          </div>
+
+          <h4>
+            Межвузовский
+            турнир
+          </h4>
+
+          <p>
+
+            Спортивные соревнования,
+            коллаборации со студклубами
+            и создание большого
+            студенческого ивента.
+
+          </p>
+
+          <div class="partner-tags">
+
+            <div class="tag">
+              🏀 Sport
+            </div>
+
+            <div class="tag">
+              🎟 Events
+            </div>
+
+            <div class="tag">
+              🔥 Community
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <h3>
+          Давайте
+          сотрудничать
+        </h3>
+      </div>
+
+      <p>
+
+        Мы открыты к совместным проектам,
+        образовательным инициативам,
+        мероприятиям,
+        медиа-интеграциям
+        и партнёрствам.
+
+      </p>
+
+    </div>
+
+    <div class="collab-layout">
+
+      <div class="collab-card">
+
+        <div>
+
+          <h4>
+            Что мы можем
+            сделать вместе
+          </h4>
+
+          <p>
+
+            Гуламта —
+            это активное молодёжное сообщество
+            с сильной аудиторией,
+            живым контентом
+            и большим вовлечением студентов.
+
+          </p>
+
+        </div>
+
+        <div class="collab-list">
+
+          <div class="collab-item">
+            <span>🎤</span>
+            Совместные мероприятия и фестивали
+          </div>
+
+          <div class="collab-item">
+            <span>📱</span>
+            Медиа и контент-интеграции
+          </div>
+
+          <div class="collab-item">
+            <span>🎓</span>
+            Образовательные проекты
+          </div>
+
+          <div class="collab-item">
+            <span>💼</span>
+            Карьерные программы и стажировки
+          </div>
+
+          <div class="collab-item">
+            <span>🤝</span>
+            Долгосрочные партнёрства
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="form-card">
+
+        <h4>
+          Оставить заявку
+        </h4>
+
+        <p>
+
+          Расскажите о вашей идее,
+          проекте
+          или предложении —
+          команда Гуламты свяжется с вами.
+
+        </p>
+
+        <form>
+
+          <div class="form-group">
+
+            <label class="form-label">
+              Имя / организация
+            </label>
+
+            <input
+              class="input"
+              type="text"
+              placeholder="Например: Студенческий центр МГУ"
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label class="form-label">
+              Контакт
+            </label>
+
+            <input
+              class="input"
+              type="email"
+              placeholder="example@email.com"
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label class="form-label">
+              Тип сотрудничества
+            </label>
+
+            <input
+              class="input"
+              type="text"
+              placeholder="Мероприятие / медиа / партнёрство"
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label class="form-label">
+              Сообщение
+            </label>
+
+            <textarea
+              class="textarea"
+              placeholder="Расскажите подробнее о проекте..."
+            ></textarea>
+
+          </div>
+
+          <button class="button" type="submit">
+            Отправить заявку
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+
+      <div class="logo">
+
+        <div class="logo-icon">
+          🔥
+        </div>
+
+        <div>
+          <h1>Гуламта</h1>
+          <p>Бурятское студенческое сообщество</p>
+        </div>
+
+      </div>
+
+      <p>
+
+        Пространство студентов из Бурятии,
+        объединяющее культуру,
+        дружбу и развитие в Москве.
+
+      </p>
+
+      <div class="socials">
+
+        <div class="social">TG</div>
+        <div class="social">VK</div>
+        <div class="social">IG</div>
+
+      </div>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h5>Навигация</h5>
+
+      <a href="#">Главная</a>
+      <a href="#">О нас</a>
+      <a href="#">Команда</a>
+      <a href="#">Блог</a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h5>Разделы</h5>
+
+      <a href="#">Мероприятия</a>
+      <a href="#">Гайды</a>
+      <a href="#">Партнёрам</a>
+      <a href="#">Контакты</a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h5>Контакты</h5>
+
+      <a href="#">Telegram</a>
+      <a href="#">VK</a>
+      <a href="#">Instagram</a>
+      <a href="#">Email</a>
+
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+</html>

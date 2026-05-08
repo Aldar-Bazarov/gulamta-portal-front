@@ -71,3 +71,7 @@ export interface SingleArticlesResponse {
   data: ArticlesItem;
   meta: {};
 }
+
+export type CategoryMap = {
+  readonly [K in string]: string;
+};

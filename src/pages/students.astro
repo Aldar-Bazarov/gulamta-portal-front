@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { faqs } from "../lib/mockData";
+---
+
+<Layout title="Новым студентам — Гуламта">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Новым студентам</span>
+      <h1 class="page-title">Гайды для адаптации в Москве</h1>
+      <p class="page-lead">FAQ, бытовые подсказки, документы, транспорт, общежития, стипендии, стажировки и поддержка на первом курсе.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-3">
+      {faqs.map((item) => (
+        <article class="faq card">
+          <h2>{item.question}</h2>
+          <p>{item.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Полезные гайды</span>
+          <h2 class="section-title">Темы для будущего контента</h2>
+        </div>
+      </div>
+      <div class="guide-list">
+        {["Что взять с собой в Москву", "Как найти стажировку", "Как не сгореть на первом курсе"].map((guide) => <div class="card">{guide}</div>)}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .faq,
+  .guide-list .card {
+    padding: 30px;
+  }
+
+  .faq h2 {
+    margin-bottom: 14px;
+    font-size: 26px;
+  }
+
+  .faq p {
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .guide-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .guide-list .card {
+    color: var(--accent-hover);
+    font-size: 24px;
+    font-weight: 900;
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { partners } from "../lib/mockData";
+---
+
+<Layout title="Партнёрам — Гуламта">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Партнёрам</span>
+      <h1 class="page-title">Открыты к сотрудничеству с брендами, вузами и культурными проектами</h1>
+      <p class="page-lead">Можно поддержать мероприятие, провести карьерную встречу, стать информационным партнёром или предложить совместный проект.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div class="partner-list">
+        {partners.map((partner) => <div class="card">{partner}</div>)}
+      </div>
+      <form class="card contact-form">
+        <h2>Заявка на сотрудничество</h2>
+        <input placeholder="Имя и организация" />
+        <input placeholder="Email или Telegram" />
+        <textarea placeholder="Коротко о предложении"></textarea>
+        <button class="button" type="button">Отправить заявку</button>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .partner-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .partner-list .card {
+    padding: 26px;
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .contact-form {
+    display: grid;
+    gap: 14px;
+    padding: 32px;
+  }
+
+  .contact-form h2 {
+    margin-bottom: 8px;
+    font-size: 32px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: white;
+    padding: 16px;
+  }
+
+  textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+</style>

@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Сурхарбан 2026 — Гуламта</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+
+      --bg: #faf7f4;
+      --bg-soft: #fffdfb;
+
+      --text: #191817;
+      --muted: #6f6863;
+
+      --accent: #dd6d3b;
+      --accent-hover: #cb5d2d;
+      --accent-soft: #fff0e7;
+
+      --card: rgba(255,255,255,0.78);
+      --border: rgba(0,0,0,0.06);
+
+      --shadow-sm: 0 4px 18px rgba(0,0,0,0.04);
+      --shadow-md: 0 16px 48px rgba(0,0,0,0.06);
+      --shadow-lg: 0 30px 80px rgba(0,0,0,0.12);
+
+      --radius-sm: 18px;
+      --radius-md: 28px;
+      --radius-lg: 42px;
+
+      --container: 1380px;
+      --article: 840px;
+
+    }
+
+    body {
+      font-family: Inter, sans-serif;
+      background:
+      linear-gradient(
+        to bottom,
+        #fffdfb 0%,
+        #faf7f4 100%
+      );
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.72);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .navbar {
+
+      height: 88px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-icon {
+
+      width: 48px;
+      height: 48px;
+
+      border-radius: 16px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #ffb17a,
+        #dd6d3b
+      );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+      font-size: 22px;
+
+      box-shadow:
+      0 12px 30px rgba(221,109,59,0.28);
+
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .logo p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .button {
+
+      border: none;
+      cursor: pointer;
+
+      padding: 14px 24px;
+
+      border-radius: 999px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #eb7e4e,
+        #d85f2c
+      );
+
+      color: white;
+      font-weight: 600;
+
+      box-shadow:
+      0 12px 30px rgba(221,109,59,0.25);
+
+      transition: .25s ease;
+
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      padding: 42px 0 30px;
+    }
+
+    .hero-image {
+
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 42px;
+
+      box-shadow: var(--shadow-lg);
+
+      height: 720px;
+
+    }
+
+    .hero-image img {
+      height: 100%;
+    }
+
+    .hero-overlay {
+
+      position: absolute;
+      inset: 0;
+
+      background:
+      linear-gradient(
+        to top,
+        rgba(0,0,0,.75),
+        rgba(0,0,0,.15)
+      );
+
+    }
+
+    .hero-content {
+
+      position: absolute;
+      inset: 0;
+
+      z-index: 2;
+
+      padding: 64px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      color: white;
+
+      max-width: 900px;
+
+    }
+
+    .badge {
+
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      width: fit-content;
+
+      padding: 10px 16px;
+
+      border-radius: 999px;
+
+      background: rgba(255,255,255,0.12);
+
+      backdrop-filter: blur(14px);
+
+      margin-bottom: 28px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+    }
+
+    .hero h2 {
+
+      font-size: clamp(58px,8vw,108px);
+      line-height: .92;
+      letter-spacing: -.08em;
+
+      margin-bottom: 26px;
+
+      font-weight: 900;
+
+    }
+
+    .hero-description {
+
+      font-size: 20px;
+      line-height: 1.8;
+
+      opacity: .92;
+
+      margin-bottom: 34px;
+
+      max-width: 700px;
+
+    }
+
+    .hero-meta {
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+
+    }
+
+    .meta-chip {
+
+      padding: 12px 18px;
+
+      border-radius: 999px;
+
+      background: rgba(255,255,255,0.12);
+
+      backdrop-filter: blur(14px);
+
+      font-size: 14px;
+
+    }
+
+    .article-wrapper {
+      padding: 70px 0 120px;
+    }
+
+    .article-layout {
+
+      display: grid;
+      grid-template-columns: minmax(0, var(--article)) 340px;
+      gap: 42px;
+
+      align-items: start;
+
+    }
+
+    .article {
+
+      background: rgba(255,255,255,0.78);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      border-radius: 38px;
+
+      padding: 54px;
+
+      box-shadow: var(--shadow-md);
+
+    }
+
+    .article p {
+
+      font-size: 18px;
+      line-height: 1.95;
+
+      color: #2b2927;
+
+      margin-bottom: 30px;
+
+    }
+
+    .article h3 {
+
+      font-size: 42px;
+      line-height: 1.05;
+      letter-spacing: -.06em;
+
+      margin-top: 70px;
+      margin-bottom: 24px;
+
+    }
+
+    .article img {
+
+      border-radius: 28px;
+
+      margin: 42px 0;
+
+      box-shadow: var(--shadow-md);
+
+      max-height: 520px;
+
+    }
+
+    .quote {
+
+      position: relative;
+
+      margin: 52px 0;
+      padding: 38px;
+
+      border-radius: 30px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #fff5ef,
+        #ffeadc
+      );
+
+      font-size: 28px;
+      line-height: 1.5;
+      letter-spacing: -.03em;
+
+      font-weight: 600;
+
+    }
+
+    .quote::before {
+
+      content: "“";
+
+      position: absolute;
+
+      left: 24px;
+      top: -8px;
+
+      font-size: 100px;
+
+      opacity: .12;
+
+    }
+
+    .article-list {
+
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+
+      margin: 34px 0;
+
+    }
+
+    .article-list li {
+
+      list-style: none;
+
+      display: flex;
+      align-items: start;
+      gap: 14px;
+
+      line-height: 1.8;
+
+      color: #2c2927;
+
+    }
+
+    .article-list li::before {
+
+      content: "•";
+
+      color: var(--accent);
+
+      font-size: 24px;
+
+      line-height: 1;
+
+      margin-top: 3px;
+
+    }
+
+    .sidebar {
+
+      position: sticky;
+      top: 120px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+    }
+
+    .sidebar-card {
+
+      background: rgba(255,255,255,0.78);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      border-radius: 32px;
+
+      padding: 28px;
+
+      box-shadow: var(--shadow-md);
+
+    }
+
+    .sidebar-card h4 {
+
+      font-size: 24px;
+      letter-spacing: -.04em;
+
+      margin-bottom: 20px;
+
+    }
+
+    .sidebar-card p {
+
+      color: var(--muted);
+
+      line-height: 1.8;
+
+      margin-bottom: 24px;
+
+    }
+
+    .sidebar-meta {
+
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+
+    }
+
+    .share {
+
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      margin-top: 24px;
+
+    }
+
+    .share-item {
+
+      width: 48px;
+      height: 48px;
+
+      border-radius: 18px;
+
+      background: white;
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-shadow: var(--shadow-sm);
+
+      transition: .25s ease;
+
+    }
+
+    .share-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .related {
+      margin-top: 80px;
+    }
+
+    .related-head {
+
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      margin-bottom: 34px;
+
+    }
+
+    .related-head h3 {
+
+      font-size: 54px;
+      letter-spacing: -.06em;
+      line-height: .96;
+
+    }
+
+    .related-grid {
+
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 24px;
+
+    }
+
+    .related-card {
+
+      overflow: hidden;
+
+      border-radius: 32px;
+
+      background: rgba(255,255,255,0.82);
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      backdrop-filter: blur(18px);
+
+      box-shadow: var(--shadow-md);
+
+      transition: .28s ease;
+
+    }
+
+    .related-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .related-card img {
+      height: 240px;
+    }
+
+    .related-content {
+      padding: 28px;
+    }
+
+    .related-content h5 {
+
+      font-size: 28px;
+      line-height: 1.12;
+      letter-spacing: -.04em;
+
+      margin-bottom: 16px;
+
+    }
+
+    .related-content p {
+
+      color: var(--muted);
+      line-height: 1.8;
+
+      margin-bottom: 24px;
+
+    }
+
+    footer {
+      padding: 80px 0;
+    }
+
+    .footer-grid {
+
+      border-top: 1px solid rgba(0,0,0,0.06);
+
+      padding-top: 42px;
+
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 42px;
+
+    }
+
+    .footer-column h5 {
+
+      margin-bottom: 18px;
+
+      font-size: 18px;
+
+    }
+
+    .footer-column a {
+
+      display: block;
+
+      margin-bottom: 14px;
+
+      color: var(--muted);
+
+    }
+
+    .footer-brand p {
+
+      margin-top: 18px;
+
+      color: var(--muted);
+
+      line-height: 1.8;
+
+      max-width: 340px;
+
+    }
+
+    .socials {
+
+      display: flex;
+      gap: 14px;
+
+      margin-top: 22px;
+
+    }
+
+    .social {
+
+      width: 48px;
+      height: 48px;
+
+      border-radius: 18px;
+
+      background: white;
+
+      border: 1px solid rgba(0,0,0,0.05);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-shadow: var(--shadow-sm);
+
+    }
+
+    @media (max-width: 1200px) {
+
+      .article-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        top: 0;
+      }
+
+      .related-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+    }
+
+    @media (max-width: 768px) {
+
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero-image {
+        height: 620px;
+      }
+
+      .hero-content {
+        padding: 34px;
+      }
+
+      .hero h2 {
+        font-size: 60px;
+      }
+
+      .hero-description {
+        font-size: 17px;
+      }
+
+      .article {
+        padding: 32px 26px;
+      }
+
+      .article h3 {
+        font-size: 36px;
+      }
+
+      .quote {
+        font-size: 24px;
+      }
+
+      .related-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .related-head h3 {
+        font-size: 42px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+
+  <div class="container navbar">
+
+    <div class="logo">
+
+      <div class="logo-icon">🔥</div>
+
+      <div>
+        <h1>Гуламта</h1>
+        <p>Бурятское студенческое сообщество</p>
+      </div>
+
+    </div>
+
+    <nav>
+
+      <a href="#">Главная</a>
+      <a href="#">О нас</a>
+      <a href="#">Мероприятия</a>
+      <a href="#">Блог</a>
+      <a href="#">Контакты</a>
+
+    </nav>
+
+    <button class="button">
+      Присоединиться
+    </button>
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="hero-image">
+
+      <img
+        src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2000&auto=format&fit=crop"
+        alt="Сурхарбан"
+      >
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+
+        <div class="badge">
+          🔥 Культурное мероприятие
+        </div>
+
+        <h2>
+          Сурхарбан 2026:
+          как прошёл главный
+          летний фестиваль
+          Гуламты
+        </h2>
+
+        <p class="hero-description">
+
+          Более 500 студентов, музыка,
+          спорт, знакомства, национальная культура
+          и ощущение дома посреди Москвы.
+
+        </p>
+
+        <div class="hero-meta">
+
+          <div class="meta-chip">
+            🗓 14 июня 2026
+          </div>
+
+          <div class="meta-chip">
+            👥 500+ участников
+          </div>
+
+          <div class="meta-chip">
+            📍 Коломенское
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="article-wrapper">
+
+  <div class="container">
+
+    <div class="article-layout">
+
+      <article class="article">
+
+        <p>
+
+          В воскресенье в московском парке Коломенское
+          прошло одно из крупнейших мероприятий
+          бурятского студенческого сообщества —
+          Сурхарбан 2026.
+
+        </p>
+
+        <p>
+
+          Для многих студентов это было не просто событие,
+          а настоящий день,
+          когда Москва на несколько часов
+          превратилась в пространство,
+          наполненное знакомой культурой,
+          языком,
+          музыкой и людьми,
+          с которыми ощущается связь.
+
+        </p>
+
+        <div class="quote">
+
+          Это не просто фестиваль.
+          Это чувство,
+          что ты не один в большом городе.
+
+        </div>
+
+        <img
+          src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1600&auto=format&fit=crop"
+          alt="Students"
+        >
+
+        <h3>
+          Что было на фестивале
+        </h3>
+
+        <p>
+
+          Программа длилась почти весь день.
+          На площадке одновременно проходили
+          спортивные турниры,
+          музыкальные выступления,
+          знакомства между студентами
+          и образовательные активности.
+
+        </p>
+
+        <ul class="article-list">
+
+          <li>
+            соревнования по волейболу и баскетболу;
+          </li>
+
+          <li>
+            выступления Gulamta Music Club;
+          </li>
+
+          <li>
+            традиционные игры и конкурсы;
+          </li>
+
+          <li>
+            зоны знакомств для первокурсников;
+          </li>
+
+          <li>
+            фотозоны и backstage-пространства;
+          </li>
+
+          <li>
+            networking между студентами и выпускниками.
+          </li>
+
+        </ul>
+
+        <img
+          src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=1600&auto=format&fit=crop"
+          alt="Festival"
+        >
+
+        <h3>
+          Атмосфера сообщества
+        </h3>
+
+        <p>
+
+          Многие участники отмечали,
+          что именно атмосфера делает Гуламту
+          особенным пространством.
+
+        </p>
+
+        <p>
+
+          Здесь нет ощущения формальности,
+          нет дистанции между людьми —
+          только открытость,
+          поддержка
+          и ощущение своего круга.
+
+        </p>
+
+        <div class="quote">
+
+          Для первокурсников это стало первым
+          настоящим знакомством
+          с бурятским студенческим сообществом Москвы.
+
+        </div>
+
+        <img
+          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop"
+          alt="Community"
+        >
+
+        <h3>
+          Что дальше
+        </h3>
+
+        <p>
+
+          Уже летом и осенью Гуламта проведёт
+          новые мероприятия:
+          карьерные встречи,
+          адаптационные вечера для первокурсников,
+          спортивные турниры
+          и культурные события.
+
+        </p>
+
+        <p>
+
+          Следить за анонсами можно
+          в Telegram-сообществе
+          и на сайте организации.
+
+        </p>
+
+      </article>
+
+      <aside class="sidebar">
+
+        <div class="sidebar-card">
+
+          <h4>
+            Информация
+          </h4>
+
+          <div class="sidebar-meta">
+
+            <span>
+              🗓 Опубликовано: 16 июня 2026
+            </span>
+
+            <span>
+              ✍ Автор: Медиа-отдел Гуламты
+            </span>
+
+            <span>
+              ⏱ Время чтения: 6 минут
+            </span>
+
+            <span>
+              👁 3 842 просмотра
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="sidebar-card">
+
+          <h4>
+            Поделиться
+          </h4>
+
+          <p>
+
+            Отправьте материал друзьям
+            и участникам сообщества.
+
+          </p>
+
+          <div class="share">
+
+            <div class="share-item">
+              TG
+            </div>
+
+            <div class="share-item">
+              VK
+            </div>
+
+            <div class="share-item">
+              X
+            </div>
+
+            <div class="share-item">
+              IG
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="sidebar-card">
+
+          <h4>
+            Telegram Гуламты
+          </h4>
+
+          <p>
+
+            Все новости,
+            мероприятия,
+            знакомства
+            и жизнь сообщества —
+            в Telegram.
+
+          </p>
+
+          <button class="button">
+            Открыть Telegram
+          </button>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+    <section class="related">
+
+      <div class="related-head">
+
+        <h3>
+          Другие материалы
+        </h3>
+
+      </div>
+
+      <div class="related-grid">
+
+        <article class="related-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1400&auto=format&fit=crop"
+            alt="Career"
+          >
+
+          <div class="related-content">
+
+            <h5>
+              Gulamta Career Night
+            </h5>
+
+            <p>
+
+              Встреча студентов,
+              выпускников и специалистов
+              из IT и бизнеса.
+
+            </p>
+
+            <a href="#">
+              Читать →
+            </a>
+
+          </div>
+
+        </article>
+
+        <article class="related-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=1400&auto=format&fit=crop"
+            alt="Sport"
+          >
+
+          <div class="related-content">
+
+            <h5>
+              Sport Club Tournament
+            </h5>
+
+            <p>
+
+              Как прошёл межвузовский
+              турнир Гуламты
+              этой весной.
+
+            </p>
+
+            <a href="#">
+              Читать →
+            </a>
+
+          </div>
+
+        </article>
+
+        <article class="related-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1400&auto=format&fit=crop"
+            alt="Students"
+          >
+
+          <div class="related-content">
+
+            <h5>
+              Вечер знакомств
+              первокурсников
+            </h5>
+
+            <p>
+
+              Более 200 новых студентов
+              познакомились друг с другом
+              в Москве.
+
+            </p>
+
+            <a href="#">
+              Читать →
+            </a>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+
+      <div class="logo">
+
+        <div class="logo-icon">
+          🔥
+        </div>
+
+        <div>
+          <h1>Гуламта</h1>
+          <p>Бурятское студенческое сообщество</p>
+        </div>
+
+      </div>
+
+      <p>
+
+        Пространство студентов из Бурятии,
+        объединяющее культуру,
+        дружбу и развитие в Москве.
+
+      </p>
+
+      <div class="socials">
+
+        <div class="social">TG</div>
+        <div class="social">VK</div>
+        <div class="social">IG</div>
+
+      </div>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h5>Навигация</h5>
+
+      <a href="#">Главная</a>
+      <a href="#">О нас</a>
+      <a href="#">Мероприятия</a>
+      <a href="#">Блог</a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h5>Направления</h5>
+
+      <a href="#">Music Club</a>
+      <a href="#">Sport Club</a>
+      <a href="#">Карьера</a>
+      <a href="#">Поступление</a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h5>Контакты</h5>
+
+      <a href="#">Telegram</a>
+      <a href="#">VK</a>
+      <a href="#">Instagram</a>
+      <a href="#">Email</a>
+
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+</html>

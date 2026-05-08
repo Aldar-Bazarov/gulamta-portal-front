@@ -1,0 +1,130 @@
+---
+import logoUrl from "../assets/logo.svg";
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo" aria-label="Гуламта">
+          <img src={logoUrl.src} alt="" />
+          <span>Гуламта</span>
+        </a>
+        <p>
+          Бурятское студенческое землячество Москвы. Поддерживаем студентов,
+          сохраняем культуру и создаём среду для роста.
+        </p>
+      </div>
+
+      <div>
+        <h3>Разделы</h3>
+        <a href="/about">О нас</a>
+        <a href="/team">Команда</a>
+        <a href="/events">Мероприятия</a>
+        <a href="/articles">Блог</a>
+        <a href="/students">Новым студентам</a>
+        <a href="/partners">Партнёрам</a>
+        <a href="/contacts">Контакты</a>
+      </div>
+
+      <div>
+        <h3>Проекты</h3>
+        <a href="/students">Гуламта.Карьера</a>
+        <a href="/partners">Гуламта.Поступление</a>
+        <a href="/partners">Гуламта.Сэсэн</a>
+        <a href="https://t.me/+uFQLFQtDous0YjMy">Гуламта.SportClub</a>
+        <a href="https://t.me/+NUMDCe2l0NU4YTk6">Гуламта.MusicСlub</a>
+        <a href="/design-system">Design system</a>
+      </div>
+
+      <div>
+        <h3>Соцсети</h3>
+        <a href="https://t.me/gulamta_students" target="_blank" rel="noreferrer"
+          >Telegram</a
+        >
+        <a
+          href="https://www.instagram.com/gulamta_msk"
+          target="_blank"
+          rel="noreferrer">Instagram</a
+        >
+        <a href="https://vk.com/gulamta_msk" target="_blank" rel="noreferrer"
+          >ВКонтакте</a
+        >
+      </div>
+    </div>
+    <p class="copyright">
+      © {new Date().getFullYear()} Гуламта. Москва. Все права защищены.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding: 64px 0 48px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: 36px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    color: var(--accent);
+    font-size: 28px;
+    font-weight: 900;
+  }
+
+  .footer-logo img {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    object-fit: contain;
+    box-shadow: 0 12px 30px rgba(223, 109, 59, 0.18);
+  }
+
+  .footer-brand p {
+    max-width: 390px;
+    color: var(--muted);
+  }
+
+  .site-footer h3 {
+    margin-bottom: 16px;
+    font-size: 17px;
+  }
+
+  .site-footer a:not(.footer-logo) {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+
+  .site-footer a:hover {
+    color: var(--accent);
+  }
+
+  .copyright {
+    margin-top: 36px;
+    color: var(--muted-light);
+    font-size: 14px;
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

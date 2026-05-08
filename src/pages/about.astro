@@ -1,0 +1,152 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { heroImage, stats } from "../lib/mockData";
+---
+
+<Layout title="О нас — Гуламта">
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-box">
+        <img src={heroImage} alt="Сообщество Гуламта" />
+        <div class="page-hero-content">
+          <span class="eyebrow">О землячестве</span>
+          <h1 class="page-title">
+            Гуламта помогает студентам из Бурятии найти своих в Москве
+          </h1>
+          <p class="page-lead">
+            Мы сохраняем культуру, поддерживаем новичков, развиваем молодёжные
+            проекты и собираем активное бурятское студенческое комьюнити.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="text-card card">
+        <span class="section-kicker">История</span>
+        <h2>От встреч земляков к большому сообществу</h2>
+        <p>
+          Гуламта выросла из потребности студентов поддерживать связь друг с
+          другом, помогать первокурсникам и создавать события, где бурятская
+          культура звучит современно.
+        </p>
+      </article>
+      <article class="text-card card">
+        <span class="section-kicker">Миссия</span>
+        <h2>Поддержка, культура и развитие</h2>
+        <p>
+          Мы помогаем адаптироваться в Москве, сохраняем связь с Бурятией,
+          развиваем молодёжные инициативы и создаём пространство для дружбы,
+          спорта, карьеры и творчества.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Ценности</span>
+          <h2 class="section-title">На чём держится Гуламта</h2>
+        </div>
+      </div>
+      <div class="grid-4">
+        {
+          ["Взаимопомощь", "Культура", "Открытость", "Инициативность"].map(
+            (value) => <div class="value-card card">{value}</div>,
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">География</span>
+          <h2 class="section-title">Студенты из десятков вузов Москвы</h2>
+        </div>
+        <p class="section-lead">
+          МГУ, ВШЭ, МГТУ, РУДН, РЭУ, МГИМО, РНИМУ и другие университеты.
+        </p>
+      </div>
+      <div class="stats-list">
+        {
+          stats.map((stat) => (
+            <div class="card">
+              <>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .text-card {
+    padding: 36px;
+  }
+
+  .text-card h2 {
+    margin-bottom: 16px;
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .text-card p {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .value-card {
+    display: grid;
+    min-height: 150px;
+    place-items: center;
+    color: var(--accent-hover);
+    font-size: 24px;
+    font-weight: 900;
+    text-align: center;
+    padding: 28px;
+  }
+
+  .stats-list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .stats-list .card {
+    padding: 24px;
+  }
+
+  .stats-list strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 38px;
+  }
+
+  .stats-list span {
+    color: var(--muted);
+  }
+
+  @media (max-width: 1000px) {
+    .stats-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .stats-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

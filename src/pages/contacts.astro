@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Контакты — Гуламта">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Контакты</span>
+      <h1 class="page-title">Связаться с Гуламтой</h1>
+      <p class="page-lead">
+        Соцсети, почта и быстрые каналы для студентов, партнёров и участников
+        мероприятий.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-3">
+      <a
+        class="contact card"
+        href="https://t.me/"
+        target="_blank"
+        rel="noreferrer"><span>TG</span><h2>Telegram</h2><p>Новости, бот</p></a
+      >
+      <a
+        class="contact card"
+        href="https://instagram.com/"
+        target="_blank"
+        rel="noreferrer"
+        ><span>IG</span><h2>Инстаграм</h2><p>Reels, контент</p></a
+      >
+      <a
+        class="contact card"
+        href="https://vk.com/"
+        target="_blank"
+        rel="noreferrer"
+        ><span>VK</span><h2>ВКонтакте</h2><p>Посты, фотоальбомы и анонсы</p></a
+      >
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact {
+    padding: 32px;
+    transition: 0.25s ease;
+  }
+
+  .contact:hover {
+    transform: translateY(-4px);
+  }
+
+  .contact span {
+    display: grid;
+    width: 64px;
+    height: 64px;
+    place-items: center;
+    margin-bottom: 22px;
+    border-radius: 22px;
+    background: var(--accent-soft);
+    color: var(--accent-hover);
+    font-weight: 900;
+  }
+
+  .contact h2 {
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+
+  .contact p {
+    color: var(--muted);
+  }
+</style>

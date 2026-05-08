@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Гуламта — студенческое сообщество</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family==Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #faf7f4;
+      --card: rgba(255,255,255,0.78);
+      --text: #1e1c1b;
+      --muted: #6b6662;
+      --accent: #dd6b39;
+      --accent-soft: #f4c7a9;
+      --border: rgba(0,0,0,0.06);
+      --shadow: 0 10px 40px rgba(0,0,0,0.06);
+      --radius: 28px;
+    }
+
+    body {
+      font-family: Inter, sans-serif;
+      background: linear-gradient(to bottom, #fffdfb 0%, #faf7f4 100%);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1280px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.72);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .navbar {
+      height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ffb27a, #dd6b39);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 22px;
+      box-shadow: 0 8px 30px rgba(221,107,57,0.3);
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .logo p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #4f4b48;
+      font-size: 15px;
+    }
+
+    nav a {
+      transition: 0.25s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .button {
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #eb7a48, #d35d2b);
+      color: white;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(221,107,57,0.25);
+      transition: 0.25s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      padding: 64px 0 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(0,0,0,0.05);
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 14px;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero h2 {
+      font-size: clamp(52px, 7vw, 86px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      margin-bottom: 28px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .ghost-btn {
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: white;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-image {
+      position: relative;
+      height: 720px;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-image img {
+      height: 100%;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.28), rgba(0,0,0,0));
+    }
+
+    .floating-card {
+      position: absolute;
+      bottom: 28px;
+      left: 28px;
+      right: 28px;
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .stats {
+      padding: 36px 0 80px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .stat-card h3 {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+
+    .stat-card p {
+      color: var(--muted);
+    }
+
+    section {
+      padding: 48px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .section-head h3 {
+      font-size: clamp(34px, 4vw, 54px);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 24px;
+    }
+
+    .event-card {
+      background: white;
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: 0.3s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .event-card img {
+      height: 260px;
+    }
+
+    .event-content {
+      padding: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff3eb;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .event-content h4 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .event-content p {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .link {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .departments-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 24px;
+    }
+
+    .department-card {
+      padding: 36px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
+      transition: 0.3s ease;
+    }
+
+    .department-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .department-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 22px;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #ffe1cf, #ffd0b4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    }
+
+    .department-card h4 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .department-card p {
+      color: var(--muted);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(6,1fr);
+      gap: 18px;
+    }
+
+    .gallery-grid img {
+      height: 260px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-grid img:nth-child(2),
+    .gallery-grid img:nth-child(5) {
+      margin-top: 40px;
+    }
+
+    .cta {
+      padding: 120px 0;
+    }
+
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 42px;
+      min-height: 420px;
+      padding: 72px;
+      display: flex;
+      align-items: center;
+      background: #f5ebe3;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(250,247,244,0.96) 0%, rgba(250,247,244,0.82) 38%, rgba(250,247,244,0.18) 72%, rgba(0,0,0,0) 100%);
+      z-index: 1;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .cta-bg img {
+      height: 100%;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+    }
+
+    .cta-content h3 {
+      font-size: clamp(40px, 5vw, 70px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      margin-bottom: 24px;
+    }
+
+    .cta-content p {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    footer {
+      padding: 60px 0 90px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .footer-column h5 {
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .footer-column a {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--muted);
+    }
+
+    .footer-brand p {
+      margin-top: 18px;
+      color: var(--muted);
+      max-width: 340px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .social {
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 1200px) {
+      .events-grid,
+      .gallery-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .departments-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        height: 560px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .hero h2 {
+        font-size: 52px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .events-grid,
+      .departments-grid,
+      .stats-grid,
+      .gallery-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid img:nth-child(2),
+      .gallery-grid img:nth-child(5) {
+        margin-top: 0;
+      }
+
+      .cta-box {
+        padding: 36px;
+        min-height: 560px;
+      }
+
+      .cta-box::before {
+        background: linear-gradient(to top, rgba(250,247,244,0.96), rgba(250,247,244,0.72));
+      }
+
+      .hero-image {
+        height: 480px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container navbar">
+    <div class="logo">
+      <div class="logo-icon">🔥</div>
+      <div>
+        <h1>Гуламта</h1>
+        <p>Бурятское студенческое сообщество</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#">О сообществе</a>
+      <a href="#">События</a>
+      <a href="#">Медиа</a>
+      <a href="#">Гайды</a>
+      <a href="#">Команда</a>
+      <a href="#">Партнёры</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <button class="button">Присоединиться</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div>
+      <div class="eyebrow">
+        <span>🔥</span>
+        Наш очаг в Москве
+      </div>
+
+      <h2>
+        Гуламта —<br>
+        место своих
+      </h2>
+
+      <p>
+        Сообщество бурятских студентов в Москве. Поддерживаем друг друга,
+        сохраняем корни и создаём новое поколение молодых профессионалов.
+      </p>
+
+      <div class="hero-actions">
+        <button class="button">Вступить в Telegram</button>
+        <a class="ghost-btn" href="#">Узнать больше</a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1400&auto=format&fit=crop" alt="Community">
+      <div class="hero-overlay"></div>
+
+      <div class="floating-card">
+        <strong style="font-size: 28px; display:block; margin-bottom: 8px;">
+          1240+ студентов
+        </strong>
+        <p style="opacity: 0.85;">
+          Уже нашли друзей, поддержку и своё сообщество в Москве.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="stats">
+  <div class="container stats-grid">
+
+    <div class="stat-card">
+      <h3>1240+</h3>
+      <p>студентов в сообществе</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>28</h3>
+      <p>вузов Москвы</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>80+</h3>
+      <p>мероприятий в год</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>7</h3>
+      <p>направлений развития</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <h3>Новости и события</h3>
+      </div>
+
+      <p>
+        Лекции, встречи, пикники, поездки и вечерние разговоры — всё, что создаёт настоящее студенческое комьюнити.
+      </p>
+    </div>
+
+    <div class="events-grid">
+
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1200&auto=format&fit=crop" alt="Event">
+
+        <div class="event-content">
+          <span class="badge">Событие</span>
+          <h4>Весенний пикник Гуламты</h4>
+          <p>Музыка, игры, знакомства и атмосфера настоящего землячества.</p>
+          <a class="link" href="#">Подробнее →</a>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop" alt="Event">
+
+        <div class="event-content">
+          <span class="badge">Лекция</span>
+          <h4>Карьера в IT и медиа</h4>
+          <p>Разговор с выпускниками московских вузов и молодыми специалистами.</p>
+          <a class="link" href="#">Подробнее →</a>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop" alt="Event">
+
+        <div class="event-content">
+          <span class="badge">Культура</span>
+          <h4>Вечер бурятской культуры</h4>
+          <p>Истории, музыка, традиции и разговоры о современной идентичности.</p>
+          <a class="link" href="#">Подробнее →</a>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Event">
+
+        <div class="event-content">
+          <span class="badge">Поездка</span>
+          <h4>Байкал ближе, чем кажется</h4>
+          <p>Истории студентов о доме, памяти и дороге между Бурятией и Москвой.</p>
+          <a class="link" href="#">Подробнее →</a>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <h3>Направления сообщества</h3>
+      </div>
+
+      <p>
+        Мы объединяем студентов с разными интересами — от спорта и медиа до науки и волонтёрства.
+      </p>
+    </div>
+
+    <div class="departments-grid">
+
+      <div class="department-card">
+        <div class="department-icon">🎓</div>
+        <h4>Образование</h4>
+        <p>Помощь с адаптацией, стажировками, карьерой и поиском возможностей.</p>
+      </div>
+
+      <div class="department-card">
+        <div class="department-icon">🎨</div>
+        <h4>Творчество</h4>
+        <p>Фото, видео, дизайн, музыка и культурные проекты внутри сообщества.</p>
+      </div>
+
+      <div class="department-card">
+        <div class="department-icon">🏔️</div>
+        <h4>Культура</h4>
+        <p>Современное переосмысление бурятской идентичности и традиций.</p>
+      </div>
+
+      <div class="department-card">
+        <div class="department-icon">🏀</div>
+        <h4>Спорт</h4>
+        <p>Тренировки, турниры и совместные активности для студентов Москвы.</p>
+      </div>
+
+      <div class="department-card">
+        <div class="department-icon">🤝</div>
+        <h4>Волонтёрство</h4>
+        <p>Социальные инициативы, помощь студентам и добрые городские проекты.</p>
+      </div>
+
+      <div class="department-card">
+        <div class="department-icon">📸</div>
+        <h4>Медиа</h4>
+        <p>Контент, интервью, репортажи и визуальная история нашего сообщества.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <h3>Моменты сообщества</h3>
+      </div>
+
+      <p>
+        Настоящие эмоции, живые встречи и воспоминания, которые становятся частью студенческой жизни.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop" alt="Gallery">
+      <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1200&auto=format&fit=crop" alt="Gallery">
+      <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=1200&auto=format&fit=crop" alt="Gallery">
+      <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=1200&auto=format&fit=crop" alt="Gallery">
+      <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1200&auto=format&fit=crop" alt="Gallery">
+      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop" alt="Gallery">
+    </div>
+
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+
+    <div class="cta-box">
+
+      <div class="cta-bg">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop" alt="Fire">
+      </div>
+
+      <div class="cta-content">
+        <h3>
+          Гуламта ждёт тебя
+        </h3>
+
+        <p>
+          Присоединяйся к бурятскому студенческому сообществу Москвы через Telegram-бота.
+        </p>
+
+        <button class="button">
+          Стать частью сообщества
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-grid">
+
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-icon">🔥</div>
+        <div>
+          <h1>Гуламта</h1>
+          <p>Бурятское студенческое сообщество</p>
+        </div>
+      </div>
+
+      <p>
+        Пространство для студентов из Бурятии, которые учатся, живут и создают своё будущее в Москве.
+      </p>
+
+      <div class="socials">
+        <div class="social">TG</div>
+        <div class="social">VK</div>
+        <div class="social">IG</div>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h5>Навигация</h5>
+      <a href="#">О нас</a>
+      <a href="#">События</a>
+      <a href="#">Гайды</a>
+      <a href="#">Медиа</a>
+    </div>
+
+    <div class="footer-column">
+      <h5>Сообщество</h5>
+      <a href="#">Команда</a>
+      <a href="#">Направления</a>
+      <a href="#">Партнёры</a>
+      <a href="#">Контакты</a>
+    </div>
+
+    <div class="footer-column">
+      <h5>Полезное</h5>
+      <a href="#">Гид по Москве</a>
+      <a href="#">FAQ</a>
+      <a href="#">Telegram бот</a>
+      <a href="#">Поддержка</a>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

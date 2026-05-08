@@ -1,0 +1,80 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { events, heroImage } from "../lib/mockData";
+---
+
+<Layout title="Мероприятия — Гуламта">
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-box">
+        <img src={heroImage} alt="Мероприятия Гуламты" />
+        <div class="page-hero-content">
+          <span class="eyebrow">Календарь</span>
+          <h1 class="page-title">Культурные, спортивные и образовательные события</h1>
+          <p class="page-lead">Ближайшие встречи, архив мероприятий, фото, видео и отчёты будут подтягиваться из Strapi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="categories">
+        {["культурные", "спортивные", "образовательные", "networking", "праздники"].map((item) => <span>{item}</span>)}
+      </div>
+      <div class="grid-4">
+        {events.map((event) => (
+          <article class="event card">
+            <img src={event.image} alt={event.title} />
+            <div>
+              <span class="badge">{event.category}</span>
+              <h2>{event.title}</h2>
+              <p>{event.description}</p>
+              <small>{event.date} · {event.place}</small>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .categories span {
+    border-radius: 999px;
+    background: white;
+    color: var(--muted);
+    font-weight: 800;
+    padding: 12px 16px;
+  }
+
+  .event {
+    overflow: hidden;
+  }
+
+  .event img {
+    height: 230px;
+  }
+
+  .event div {
+    padding: 24px;
+  }
+
+  .event h2 {
+    margin: 14px 0 10px;
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .event p,
+  .event small {
+    color: var(--muted);
+  }
+</style>
