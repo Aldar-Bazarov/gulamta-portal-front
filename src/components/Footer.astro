@@ -55,6 +55,13 @@ import logoUrl from "../assets/logo.svg";
     <p class="copyright">
       © {new Date().getFullYear()} Гуламта. Москва. Все права защищены.
     </p>
+    <p class="developer">
+      Разработка — <a
+        href="http://t.me/bazarovaldar"
+        target="_blank"
+        rel="noreferrer">@bazarovaldar</a
+      >
+    </p>
   </div>
 </footer>
 
@@ -114,6 +121,24 @@ import logoUrl from "../assets/logo.svg";
     margin-top: 36px;
     color: var(--muted-light);
     font-size: 14px;
+  }
+
+  .developer {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted-light);
+    display: flex;
+    gap: 3px;
+  }
+
+  .developer a {
+    color: inherit;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+
+  .developer a:hover {
+    opacity: 1;
   }
 
   @media (max-width: 900px) {
